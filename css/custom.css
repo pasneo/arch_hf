@@ -1,0 +1,13 @@
+
+.maintitle {
+    padding-top: 10pt;
+    text-align: center;
+}
+
+.maintitle h2 {
+    color: #6c7ae0;
+}
+
+.custom-row {
+    cursor: pointer;
+}
