@@ -26,15 +26,15 @@
 <body>
 
     <div class="maintitle">
-        <h6>Student</h6>
-        <h2 class="name-title" id="student-name"></h2>
+        <h6>Lecturer</h6>
+        <h2 class="name-title" id="lecturer-name"></h2>
     </div>
 
     <div class="desc-container">
         <table>
             <tr>
                 <td class="desc-title">Date of birth</td>
-                <td id="student-dateofbirth"></td>
+                <td id="lecturer-dateofbirth"></td>
             </tr>
         </table>
     </div>
@@ -51,8 +51,8 @@
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column1">Subject</th>
-									<th class="cell100 column2">Course</th>
+                                    <th class="cell100 column1">Subject</th>
+                                    <th class="cell100 column2">Course</th>
 								</tr>
 							</thead>
 						</table>
@@ -69,38 +69,6 @@
 			</div>
 		</div>
     </div>
-    
-    <div class="maintitle">
-            <h3>Grades</h3>
-    </div>
-    
-        <div class="limiter">
-            <div class="container-table100">
-                <div class="wrap-table100">
-                    <div class="table100 ver1 m-b-110">
-                        <div class="table100-head">
-                            <table>
-                                <thead>
-                                    <tr class="row100 head">
-                                        <th class="cell100 column1">Subject</th>
-                                        <th class="cell100 column2">Date</th>
-                                        <th class="cell100 column3">Grade</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-    
-                        <div class="table100-body js-pscroll">
-                            <table>
-                                <tbody id="grades-table-rows">
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 <!--===============================================================================================-->	
@@ -138,21 +106,18 @@
             AddCourseToTable(0, "E", "Software architectures");
             AddCourseToTable(0, "Lab", "System and Software Verification");
 
-            AddGradeToTable(0, "Software architectures", "12-12-2019", 4);
-            AddGradeToTable(0, "Software architectures", "19-12-2019", 5);
-
 		}
 
 		function ReadData(json) {
 			
-			let student = JSON.parse(json);
+			let lecturer = JSON.parse(json);
 
-            let name = student.name;
-            let dateOfBirth = student.dateOfBirth;
-            let courses = student.courses;
+            let name = lecturer.name;
+            let dateOfBirth = lecturer.dateOfBirth;
+            let courses = lecturer.courses;
 
-            document.getElementById("student-name").innerHTML = name;
-            document.getElementById("student-dateofbirth").innerHTML = dateOfBirth;
+            document.getElementById("lecturer-name").innerHTML = name;
+            document.getElementById("lecturer-dateofbirth").innerHTML = dateOfBirth;
 
 		}
 
@@ -167,19 +132,6 @@
 			newElement.onclick = function() { window.location = 'course.html?id='+id };
 			document.getElementById("courses-table-rows").appendChild( newElement );
 		}
-
-        //This should be called when filling the table with data from DB
-        function AddGradeToTable(exam_id, subjectName, examDate, grade) {
-            let newElement = document.createElement('tr');
-            newElement.classList.add('custom-row', 'row100', 'body');
-
-            newElement.innerHTML = '<td class="cell100 column1">'+subjectName+'</td>\
-                                    <td class="cell100 column2">'+examDate+'</td>\
-                                    <td class="cell100 column3">'+grade+'</td>';
-
-            newElement.onclick = function() { window.location = 'exam.html?id='+exam_id };
-            document.getElementById("grades-table-rows").appendChild( newElement );
-        }
 
 
 		window.onload=init;

@@ -20,10 +20,14 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+<!--===============================================================================================-->
 </head>
 <body>
-	
-	<button onclick="AddStudentToTable('Hello', '02-03-1998');">Add</button>
+
+	<div class="maintitle">
+		<h2>Lecturers</h2>
+	</div>
 
 	<div class="limiter">
 		<div class="container-table100">
@@ -43,10 +47,7 @@
 					<div class="table100-body js-pscroll">
 						<table>
 							<tbody id="tableRows">
-								<tr class="row100 body">
-									<td class="cell100 column1">John Williams</td>
-									<td class="cell100 column2">02-03-1995</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
@@ -73,16 +74,55 @@
 				ps.update();
 			})
 		});
-		
-		function AddStudentToTable(name, dateOfBirth) {
-			var newElement = '<tr class="row100 body">\
-									<td class="cell100 column1">'+name+'</td>\
-									<td class="cell100 column2">'+dateOfBirth+'</td>\
-							  </tr>';
-			document.getElementById("tableRows").innerHTML += newElement;
-		}
-		
 	</script>
+
+	<script>
+
+		//Just an example (to be deleted later)
+		function init() {
+			let json = '{ "lecturers":[\
+							{	"id": 0,\
+								"name":"John",\
+								"dateOfBirth":"12-01-1996"\
+							},\
+							{	"id": 1,\
+								"name":"Billy",\
+								"dateOfBirth":"15-03-1988"\
+							},\
+							{	"id": 2,\
+								"name":"George",\
+								"dateOfBirth":"11-11-2000"\
+							}\
+						]}';
+			ReadData(json);
+		}
+
+		function ReadData(json) {
+			
+			let obj = JSON.parse(json);
+			let lecturers = obj.lecturers;
+
+			for(i=0; i<lecturers.length; ++i) {
+				let lecturer = lecturers[i];
+				AddLecturerToTable(lecturer.id, lecturer.name, lecturer.dateOfBirth);
+			}
+
+		}
+
+		//This should be called when filling the table with data from DB
+		function AddLecturerToTable(id, name, dateOfBirth) {
+			let newElement = document.createElement('tr');
+			newElement.classList.add('custom-row', 'row100', 'body');
+			newElement.innerHTML = '<td class="cell100 column1">'+name+'</td>\
+									<td class="cell100 column2">'+dateOfBirth+'</td>';
+			newElement.onclick = function() { window.location = 'lecturer.html?id='+id };
+			document.getElementById("tableRows").appendChild( newElement );
+		}
+
+		window.onload=init;
+
+	</script>
+
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

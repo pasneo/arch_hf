@@ -78,6 +78,7 @@
 
 	<script>
 
+		//Just an example (to be deleted later)
 		function init() {
 			let json = '{ "students":[\
 							{	"id": 0,\
@@ -114,7 +115,7 @@
 			newElement.classList.add('custom-row', 'row100', 'body');
 			newElement.innerHTML = '<td class="cell100 column1">'+name+'</td>\
 									<td class="cell100 column2">'+dateOfBirth+'</td>';
-			newElement.onclick = function() { window.location = 'student?id='+id };
+			newElement.onclick = function() { window.location = 'student.html?id='+id };
 			document.getElementById("tableRows").appendChild( newElement );
 		}
 
