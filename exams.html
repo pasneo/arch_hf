@@ -31,15 +31,15 @@
 						<ul class="menubar">
 								<li><a href="students.html">Students</a></li>
 								<li><a href="lecturers.html">Lecturers</a></li>
-								<li><a class="active" href="#">Subjects</a></li>
-								<li><a href="exams.html">Exams</a></li>
+								<li><a href="subjects.html">Subjects</a></li>
+								<li><a class="active" href="#">Exams</a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
 
 	<div class="maintitle">
-		<h2>Subjects</h2>
+		<h2>Exams</h2>
 	</div>
 
 	<div class="limiter">
@@ -51,9 +51,9 @@
 							<thead>
 								<tr class="row100 head">
 									<!-- Add columns here -->
-									<th class="cell100 column1">Code</th>
-									<th class="cell100 column2">Name</th>
-									<th class="cell100 column3">Credit</th>
+									<th class="cell100 column1">Subject</th>
+									<th class="cell100 column2">Date</th>
+									<th class="cell100 column3">Classroom</th>
 								</tr>
 							</thead>
 						</table>
@@ -95,16 +95,21 @@
 
 		//Just an example (to be deleted later)
 		function init() {
-			let json = '{ "subjects":[\
+			let json = '{ "exams":[\
 							{	"id": 0,\
-								"code":"BMEVIAUMA06",\
-								"name":"Software Architectures",\
-								"credit":4\
+								"date":"19-01-2019",\
+								"classroom":"IB028",\
+								"subjectName":"Software Architectures"\
 							},\
-							{	"id": 0,\
-								"code":"BMEVIMIMA01",\
-								"name":"Software and System Verification",\
-								"credit":4\
+							{	"id": 1,\
+								"date":"19-01-2019",\
+								"classroom":"Q-I",\
+								"subjectName":"Software and System Verification"\
+							},\
+							{	"id": 2,\
+								"date":"22-01-2019",\
+								"classroom":"IB027",\
+								"subjectName":"Software Architectures"\
 							}\
 						]}';
 			ReadData(json);
@@ -113,26 +118,26 @@
 		function ReadData(json) {
 			
 			let obj = JSON.parse(json);
-			let subjects = obj.subjects;
+			let exams = obj.exams;
 
-			for(i=0; i<subjects.length; ++i) {
-				let subject = subjects[i];
-				AddSubjectToTable(subject.id, subject.code, subject.name, subject.credit);
+			for(i=0; i<exams.length; ++i) {
+				let exam = exams[i];
+				AddTargetToTable(exam.id, exam.subjectName, exam.date, exam.classroom);
 			}
 
 		}
 
 		//This should be called when filling the table with data from DB
-		function AddSubjectToTable(id, code, name, credit) {
+		function AddTargetToTable(id, subjectName, date, classroom) {
 			let newElement = document.createElement('tr');
 
 			newElement.classList.add('custom-row', 'row100', 'body');
 
 			let deleteButtonCode = '<a href="#" class="custom-button admin">Delete</a>';
 
-			newElement.innerHTML = '<td class="cell100 column1">'+code+'</td>\
-									<td class="cell100 column2">'+name+'</td>\
-									<td class="cell100 column3">'+credit+deleteButtonCode+'</td>';
+			newElement.innerHTML = '<td class="cell100 column1">'+subjectName+'</td>\
+									<td class="cell100 column2">'+date+'</td>\
+									<td class="cell100 column3">'+classroom+deleteButtonCode+'</td>';
 
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
@@ -141,7 +146,7 @@
 					e.stopPropagation();
 				};
 
-			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id };
+			newElement.onclick = function() { window.location = 'exam.html?exam_id='+id };
 
 			document.getElementById("tableRows").appendChild( newElement );
 		}
