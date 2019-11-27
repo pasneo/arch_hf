@@ -25,6 +25,18 @@
 </head>
 <body>
 
+		<nav class="menubar-nav">
+				<div class="menubar-container-wrapper">
+					<div class="menubar-container">
+						<ul class="menubar">
+								<li><a href="students.html">Students</a></li>
+								<li><a class="active" href="#">Lecturers</a></li>
+								<li><a href="subjects.html">Subjects</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
 	<div class="maintitle">
 		<h2>Lecturers</h2>
 	</div>
@@ -37,8 +49,11 @@
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column1">Name</th>
-									<th class="cell100 column2">Date of birth</th>
+									<!-- Add columns here -->
+									<th class="cell100 column1">First Name</th>
+									<th class="cell100 column2">Last name</th>
+									<th class="cell100 column3">Address</th>
+									<th class="cell100 column4">E-mail</th>
 								</tr>
 							</thead>
 						</table>
@@ -82,16 +97,22 @@
 		function init() {
 			let json = '{ "lecturers":[\
 							{	"id": 0,\
-								"name":"John",\
-								"dateOfBirth":"12-01-1996"\
+								"firstName":"John",\
+								"lastName":"Williams",\
+								"address":"85 Howling St",\
+								"email":"mymail@mail.com"\
 							},\
 							{	"id": 1,\
-								"name":"Billy",\
-								"dateOfBirth":"15-03-1988"\
+								"firstName":"Billy",\
+								"lastName":"Johnson",\
+								"address":"170 Wall St",\
+								"email":"billy@mail.com"\
 							},\
 							{	"id": 2,\
-								"name":"George",\
-								"dateOfBirth":"11-11-2000"\
+								"firstName":"Anna",\
+								"lastName":"Olsen",\
+								"address":"21 Jump St",\
+								"email":"anna@mail.com"\
 							}\
 						]}';
 			ReadData(json);
@@ -104,18 +125,33 @@
 
 			for(i=0; i<lecturers.length; ++i) {
 				let lecturer = lecturers[i];
-				AddLecturerToTable(lecturer.id, lecturer.name, lecturer.dateOfBirth);
+				AddTargetToTable(lecturer.id, lecturer.firstName, lecturer.lastName, lecturer.address, lecturer.email);
 			}
 
 		}
 
 		//This should be called when filling the table with data from DB
-		function AddLecturerToTable(id, name, dateOfBirth) {
+		function AddTargetToTable(id, firstName, lastName, address, email) {
 			let newElement = document.createElement('tr');
+
 			newElement.classList.add('custom-row', 'row100', 'body');
-			newElement.innerHTML = '<td class="cell100 column1">'+name+'</td>\
-									<td class="cell100 column2">'+dateOfBirth+'</td>';
-			newElement.onclick = function() { window.location = 'lecturer.html?id='+id };
+
+			let deleteButtonCode = '<a href="#" class="custom-button admin">Delete</a>';
+
+			newElement.innerHTML = '<td class="cell100 column1">'+firstName+'</td>\
+									<td class="cell100 column2">'+lastName+'</td>\
+									<td class="cell100 column3">'+address+'</td>\
+									<td class="cell100 column4">'+email+deleteButtonCode+'</td>';
+
+			//Delete button click
+			newElement.getElementsByClassName("custom-button")[0].onclick =
+				function(e) {
+					window.location = 'delete.html';//TODO
+					e.stopPropagation();
+				};
+
+			newElement.onclick = function() { window.location = 'lecturer.html?lecturer_id='+id };
+
 			document.getElementById("tableRows").appendChild( newElement );
 		}
 

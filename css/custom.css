@@ -93,6 +93,10 @@ ul.menubar {
     background-color: #7864c8;
 }
 
+.menubar li a.active {
+    background-color: #7864c8;
+}
+
 td.profile-pic {
     text-align: right;
     width: 50%;
@@ -105,6 +109,7 @@ td.profile-pic {
 a.custom-button {
     padding: 1px 5px;
     border: 1px solid #6c7ae0;
+    margin: auto;
     border-radius: 5px;
     background: none;
     cursor: pointer;
@@ -115,4 +120,19 @@ a.custom-button {
 a.custom-button:hover {
     padding: 1px 5px;
     background: #6c7ae0;
+}
+
+a.table-button {
+    padding: 1px 5px;
+    border: 1px solid #6c7ae0;
+    margin: auto;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+    font-size: 10pt;
+    float: right;
+}
+
+.admin {
+    visibility: visible;
 }

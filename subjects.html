@@ -29,16 +29,16 @@
 				<div class="menubar-container-wrapper">
 					<div class="menubar-container">
 						<ul class="menubar">
-								<li><a class="active" href="#">Students</a></li>
+								<li><a href="students.html">Students</a></li>
 								<li><a href="lecturers.html">Lecturers</a></li>
-								<li><a href="subjects.html">Subjects</a></li>
+								<li><a class="active" href="#">Subjects</a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
 
 	<div class="maintitle">
-		<h2>Students</h2>
+		<h2>Subjects</h2>
 	</div>
 
 	<div class="limiter">
@@ -50,10 +50,9 @@
 							<thead>
 								<tr class="row100 head">
 									<!-- Add columns here -->
-									<th class="cell100 column1">First Name</th>
-									<th class="cell100 column2">Last name</th>
-									<th class="cell100 column3">Address</th>
-									<th class="cell100 column4">E-mail</th>
+									<th class="cell100 column1">Code</th>
+									<th class="cell100 column2">Name</th>
+									<th class="cell100 column3">Credit</th>
 								</tr>
 							</thead>
 						</table>
@@ -95,24 +94,16 @@
 
 		//Just an example (to be deleted later)
 		function init() {
-			let json = '{ "students":[\
+			let json = '{ "subjects":[\
 							{	"id": 0,\
-								"firstName":"John",\
-								"lastName":"Williams",\
-								"address":"85 Howling St",\
-								"email":"mymail@mail.com"\
+								"code":"BMEVIAUMA06",\
+								"name":"Software Architectures",\
+								"credit":4\
 							},\
-							{	"id": 1,\
-								"firstName":"Billy",\
-								"lastName":"Johnson",\
-								"address":"170 Wall St",\
-								"email":"billy@mail.com"\
-							},\
-							{	"id": 2,\
-								"firstName":"Anna",\
-								"lastName":"Olsen",\
-								"address":"21 Jump St",\
-								"email":"anna@mail.com"\
+							{	"id": 0,\
+								"code":"BMEVIMIMA01",\
+								"name":"Software and System Verification",\
+								"credit":4\
 							}\
 						]}';
 			ReadData(json);
@@ -121,27 +112,26 @@
 		function ReadData(json) {
 			
 			let obj = JSON.parse(json);
-			let students = obj.students;
+			let subjects = obj.subjects;
 
-			for(i=0; i<students.length; ++i) {
-				let student = students[i];
-				AddStudentToTable(student.id, student.firstName, student.lastName, student.address, student.email);
+			for(i=0; i<subjects.length; ++i) {
+				let subject = subjects[i];
+				AddSubjectToTable(subject.id, subject.code, subject.name, subject.credit);
 			}
 
 		}
 
 		//This should be called when filling the table with data from DB
-		function AddStudentToTable(id, firstName, lastName, address, email) {
+		function AddSubjectToTable(id, code, name, credit) {
 			let newElement = document.createElement('tr');
 
 			newElement.classList.add('custom-row', 'row100', 'body');
 
 			let deleteButtonCode = '<a href="#" class="custom-button admin">Delete</a>';
 
-			newElement.innerHTML = '<td class="cell100 column1">'+firstName+'</td>\
-									<td class="cell100 column2">'+lastName+'</td>\
-									<td class="cell100 column3">'+address+'</td>\
-									<td class="cell100 column4">'+email+deleteButtonCode+'</td>';
+			newElement.innerHTML = '<td class="cell100 column1">'+code+'</td>\
+									<td class="cell100 column2">'+name+'</td>\
+									<td class="cell100 column3">'+credit+deleteButtonCode+'</td>';
 
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
@@ -150,7 +140,7 @@
 					e.stopPropagation();
 				};
 
-			newElement.onclick = function() { window.location = 'student.html?student_id='+id };
+			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id };
 
 			document.getElementById("tableRows").appendChild( newElement );
 		}

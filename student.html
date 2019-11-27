@@ -25,25 +25,23 @@
 </head>
 <body>
 
-	<nav class="menubar-nav">
-		<div class="menubar-container-wrapper">
-			<div class="menubar-container">
-				<ul class="menubar">
-						<li><a class="active" href="#">Students</a></li>
-						<li><a href="#">Lecturers</a></li>
-						<li><a href="#">Subjects</a></li>
-						<li><a href="#">Courses</a></li>
-						<li><a href="#">Exams</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+		<nav class="menubar-nav">
+				<div class="menubar-container-wrapper">
+					<div class="menubar-container">
+						<ul class="menubar">
+								<li><a href="students.html">Students</a></li>
+								<li><a href="lecturers.html">Lecturers</a></li>
+								<li><a href="subjects.html">Subjects</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
 
     <div class="maintitle">
 		<h6>Student</h6>
 		<div class="title-container">
-			<h2 id="student-name"></h2>
-			<a href="#" class="custom-button">Edit</a>
+			<h2 id="target-name"></h2>
+			<a href="#" class="custom-button admin" id="edit-profile-button">Edit</a>
 		</div>
     </div>
 
@@ -52,41 +50,41 @@
         <table>
             <tr>
                 <td class="desc-title">Date of birth</td>
-				<td class="desc-content" id="student-dateofbirth"></td>
+				<td class="desc-content" id="target-dateofbirth"></td>
 				<td class="profile-pic" rowspan="100">
-					<img id="student-profile-pic"/>
+					<img id="target-profile-pic"/>
 				</td>
             </tr>
             <tr>
                 <td class="desc-title">Address</td>
-                <td class="desc-content" id="student-address"></td>
+                <td class="desc-content" id="target-address"></td>
             </tr>
             <tr>
                 <td class="desc-title">City</td>
-                <td class="desc-content" id="student-city"></td>
+                <td class="desc-content" id="target-city"></td>
             </tr>
             <tr>
                 <td class="desc-title">Country</td>
-                <td class="desc-content" id="student-country"></td>
+                <td class="desc-content" id="target-country"></td>
             </tr>
             <tr>
                 <td class="desc-title">ZIP</td>
-                <td class="desc-content" id="student-zip"></td>
+                <td class="desc-content" id="target-zip"></td>
             </tr>
             <tr>
                 <td class="desc-title">Phone</td>
-                <td class="desc-content" id="student-phone"></td>
+                <td class="desc-content" id="target-phone"></td>
             </tr>
             <tr>
                 <td class="desc-title">E-mail</td>
-                <td class="desc-content" id="student-email"></td>
+                <td class="desc-content" id="target-email"></td>
             </tr>
         </table>
     </div>
 
 	<div class="maintitle">
-		<h3>Courses</h3>
-		<a href="#" class="custom-button">Add new</a>
+		<h3>Subjects</h3>
+		<a href="#" class="custom-button admin" id="add-subject-button">Add new</a>
 	</div>
 
 	<div class="limiter">
@@ -97,8 +95,9 @@
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column1">Subject</th>
-									<th class="cell100 column2">Course</th>
+									<th class="cell100 column1">Code</th>
+									<th class="cell100 column2">Name</th>
+									<th class="cell100 column3">Credit</th>
 								</tr>
 							</thead>
 						</table>
@@ -106,7 +105,7 @@
 
 					<div class="table100-body js-pscroll">
 						<table>
-							<tbody id="courses-table-rows">
+							<tbody id="subjects-table-rows">
 								
 							</tbody>
 						</table>
@@ -118,7 +117,7 @@
     
     <div class="maintitle">
             <h3>Grades</h3>
-			<a href="#" class="custom-button">Add new</a>
+			<a href="#" class="custom-button admin">Add new</a>
     </div>
     
         <div class="limiter">
@@ -173,67 +172,122 @@
 
         window.onload=init;
 
+		var target_id;
+
 		//Just an example (to be deleted later)
 		function init() {
 			let json = '{	"id": 2,\
 							"name":"Ted Bundy",\
 							"dateOfBirth":"11-11-2000",\
-							"address":"Howling st. 85",\
+							"address":"85 Howling St",\
 							"city":"New York",\
 							"country":"NY, USA",\
 							"zip":"10019",\
 							"phone":"123-456-7890",\
 							"email":"myemail@ny.com",\
-							"pic":"example-profile-pic.jpg"\
+							"pic":"example-profile-pic.jpg",\
+							"subjects":[],\
+							"exams":[]\
 						}';
 			ReadData(json);
 
-            AddCourseToTable(0, "G2", "Software architectures");
-            AddCourseToTable(0, "E", "Software architectures");
-            AddCourseToTable(0, "Lab", "System and Software Verification");
+            AddSubjectToTable(0, "BMEVIAUMA06", "Software architectures", 4);
+            AddSubjectToTable(1, "BMEVIMIMA01", "System and Software Verification", 4);
 
             AddGradeToTable(0, "Software architectures", "12-12-2019", 4);
-            AddGradeToTable(0, "Software architectures", "19-12-2019", 5);
+            AddGradeToTable(0, "Software architectures", "19-12-2019", null);
+
+			document.getElementById("edit-profile-button").onclick = function() {
+				window.location = 'editstudent.html?student_id='+target_id;
+			};
 
 		}
 
 		function ReadData(json) {
 			
-			let student = JSON.parse(json);
+			let target = JSON.parse(json);
 
-            document.getElementById("student-name").innerHTML = student.name;
-            document.getElementById("student-dateofbirth").innerHTML = student.dateOfBirth;
-            document.getElementById("student-address").innerHTML = student.address;
-            document.getElementById("student-city").innerHTML = student.city;
-            document.getElementById("student-country").innerHTML = student.country;
-            document.getElementById("student-zip").innerHTML = student.zip;
-            document.getElementById("student-phone").innerHTML = student.phone;
-            document.getElementById("student-email").innerHTML = student.email;
+			target_id = target.id;
 
-			document.getElementById("student-profile-pic").src = student.pic;
+			//Fill target data fields
+            document.getElementById("target-name").innerHTML = target.name;
+            document.getElementById("target-dateofbirth").innerHTML = target.dateOfBirth;
+            document.getElementById("target-address").innerHTML = target.address;
+            document.getElementById("target-city").innerHTML = target.city;
+            document.getElementById("target-country").innerHTML = target.country;
+            document.getElementById("target-zip").innerHTML = target.zip;
+            document.getElementById("target-phone").innerHTML = target.phone;
+            document.getElementById("target-email").innerHTML = target.email;
+
+			//Set profile picture
+			document.getElementById("target-profile-pic").src = target.pic;
+
+			let subjects = target.subjects;
+
+			for(i=0; i<subjects.length; ++i) {
+				let subject = subjects[i];
+				AddSubjectToTable(subject.id, subject.code, subject.name, subject.credit);
+			}
+			
+			let exams = target.exams;
+
+			for(i=0; i<exams.length; ++i) {
+				let exam = exams[i];
+				AddGradeToTable(exam.id, exam.subjectName, exam.date, exam.grade);
+			}
 
 		}
 
 		//This should be called when filling the table with data from DB
-		function AddCourseToTable(id, name, subjectName) {
+		function AddSubjectToTable(id, code, name, credit) {
 			let newElement = document.createElement('tr');
 			newElement.classList.add('custom-row', 'row100', 'body');
 
-			newElement.innerHTML = '<td class="cell100 column1">'+subjectName+'</td>\
-									<td class="cell100 column2">'+name+'</td>';
+			let deleteBttonCode = '<a href="#" class="custom-button admin">Delete</a>';
 
-			newElement.onclick = function() { window.location = 'course.html?id='+id };
-			document.getElementById("courses-table-rows").appendChild( newElement );
+			newElement.innerHTML = '<td class="cell100 column1">'+code+'</td>\
+									<td class="cell100 column2">'+name+'</td>\
+									<td class="cell100 column3">'+credit+deleteBttonCode+'</td>';
+
+			//Delete button click
+			newElement.getElementsByClassName("custom-button")[0].onclick =
+				function(e) {
+					window.location = 'delete.html';//TODO
+					e.stopPropagation();
+				};
+			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id; };
+
+			document.getElementById("subjects-table-rows").appendChild( newElement );
 		}
 
         //This should be called when filling the table with data from DB
         function AddGradeToTable(exam_id, subjectName, examDate, grade) {
+
+			if (grade == null) grade = '-';
+
             let newElement = document.createElement('tr');
             newElement.classList.add('custom-row', 'row100', 'body');
 
+			let deleteBttonCode = '<a href="#" class="custom-button admin">Delete</a>';
+			let gradeBttonCode = '<a href="#" class="custom-button admin">Grade</a>';
+
             newElement.innerHTML = '<td class="cell100 column1">'+subjectName+'</td>\
                                     <td class="cell100 column2">'+examDate+'</td>\
-                                    <td class="cell100 column3">'+grade+'</td>';
+                                    <td class="cell100 column3">'+grade+deleteBttonCode+gradeBttonCode+'</td>';
+
+			//Delete button click
+			newElement.getElementsByClassName("custom-button")[0].onclick =
+				function(e) {
+					window.location = 'delete.html';//TODO
+					e.stopPropagation();
+				};
+
+			//Grade button click
+			newElement.getElementsByClassName("custom-button")[1].onclick =
+				function(e) {
+					window.location = 'grade.html?student_id='+target_id+'&exam_id='+exam_id;//TODO
+					e.stopPropagation();
+				};
 
             newElement.onclick = function() { window.location = 'exam.html?id='+exam_id };
             document.getElementById("grades-table-rows").appendChild( newElement );
