@@ -25,22 +25,68 @@
 </head>
 <body>
 
+	<nav class="menubar-nav">
+		<div class="menubar-container-wrapper">
+			<div class="menubar-container">
+				<ul class="menubar">
+						<li><a class="active" href="#">Students</a></li>
+						<li><a href="#">Lecturers</a></li>
+						<li><a href="#">Subjects</a></li>
+						<li><a href="#">Courses</a></li>
+						<li><a href="#">Exams</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
     <div class="maintitle">
-        <h6>Student</h6>
-        <h2 class="name-title" id="student-name"></h2>
+		<h6>Student</h6>
+		<div class="title-container">
+			<h2 id="student-name"></h2>
+			<a href="#" class="custom-button">Edit</a>
+		</div>
     </div>
+
 
     <div class="desc-container">
         <table>
             <tr>
                 <td class="desc-title">Date of birth</td>
-                <td id="student-dateofbirth"></td>
+				<td class="desc-content" id="student-dateofbirth"></td>
+				<td class="profile-pic" rowspan="100">
+					<img id="student-profile-pic"/>
+				</td>
+            </tr>
+            <tr>
+                <td class="desc-title">Address</td>
+                <td class="desc-content" id="student-address"></td>
+            </tr>
+            <tr>
+                <td class="desc-title">City</td>
+                <td class="desc-content" id="student-city"></td>
+            </tr>
+            <tr>
+                <td class="desc-title">Country</td>
+                <td class="desc-content" id="student-country"></td>
+            </tr>
+            <tr>
+                <td class="desc-title">ZIP</td>
+                <td class="desc-content" id="student-zip"></td>
+            </tr>
+            <tr>
+                <td class="desc-title">Phone</td>
+                <td class="desc-content" id="student-phone"></td>
+            </tr>
+            <tr>
+                <td class="desc-title">E-mail</td>
+                <td class="desc-content" id="student-email"></td>
             </tr>
         </table>
     </div>
 
 	<div class="maintitle">
 		<h3>Courses</h3>
+		<a href="#" class="custom-button">Add new</a>
 	</div>
 
 	<div class="limiter">
@@ -72,6 +118,7 @@
     
     <div class="maintitle">
             <h3>Grades</h3>
+			<a href="#" class="custom-button">Add new</a>
     </div>
     
         <div class="limiter">
@@ -130,7 +177,14 @@
 		function init() {
 			let json = '{	"id": 2,\
 							"name":"Ted Bundy",\
-							"dateOfBirth":"11-11-2000"\
+							"dateOfBirth":"11-11-2000",\
+							"address":"Howling st. 85",\
+							"city":"New York",\
+							"country":"NY, USA",\
+							"zip":"10019",\
+							"phone":"123-456-7890",\
+							"email":"myemail@ny.com",\
+							"pic":"example-profile-pic.jpg"\
 						}';
 			ReadData(json);
 
@@ -147,12 +201,16 @@
 			
 			let student = JSON.parse(json);
 
-            let name = student.name;
-            let dateOfBirth = student.dateOfBirth;
-            let courses = student.courses;
+            document.getElementById("student-name").innerHTML = student.name;
+            document.getElementById("student-dateofbirth").innerHTML = student.dateOfBirth;
+            document.getElementById("student-address").innerHTML = student.address;
+            document.getElementById("student-city").innerHTML = student.city;
+            document.getElementById("student-country").innerHTML = student.country;
+            document.getElementById("student-zip").innerHTML = student.zip;
+            document.getElementById("student-phone").innerHTML = student.phone;
+            document.getElementById("student-email").innerHTML = student.email;
 
-            document.getElementById("student-name").innerHTML = name;
-            document.getElementById("student-dateofbirth").innerHTML = dateOfBirth;
+			document.getElementById("student-profile-pic").src = student.pic;
 
 		}
 

@@ -72,6 +72,7 @@ textarea:focus, input:focus {
 }
 
 /* ------------------------------------ */
+/* 
 button {
 	outline: none !important;
 	border: none;
@@ -81,6 +82,7 @@ button {
 button:hover {
 	cursor: pointer;
 }
+*/
 
 iframe {
 	border: none !important;
@@ -136,7 +138,7 @@ iframe {
 [ Table ]*/
 
 .limiter {
-  width: 1366px;
+  width: 100vw; /* this was 1366px */
   margin: 0 auto;
 }
 
@@ -153,11 +155,11 @@ iframe {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 33px 30px;
+  padding: 10px 30px; /* this was 33px 30px */
 }
 
 .wrap-table100 {
-  width: 1170px;
+  width: 76vw; /* this was 1170px */
 }
 
 /*//////////////////////////////////////////////////////////////////
