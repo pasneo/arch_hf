@@ -55,38 +55,22 @@
         <div class="grade-button-container">
             <a href="#" class="cancel-button" id="cancel">Cancel</a>
         </div>
+        
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="js/common.js"></script>
 
     <script>
-
-        function requestData() {
-
-            let request = new XMLHttpRequest();
-
-            request.open("GET", "https://ghibliapi.herokuapp.com/films", true);
-
-            request.onload = function() {
-                // Begin accessing JSON data here
-                var data = JSON.parse(this.response)
-
-                if (request.status >= 200 && request.status < 400) {
-                    for(i=0; i<data.length; ++i)
-                        console.log(data[i].title);
-                } else {
-                    console.log('error')
-                }
-            }
-
-            request.send()
-
-        }
 
         function init() {
             
             requestData();
 
-            let url = new URL(window.location.href);
-            let student_id = url.searchParams.get("student_id");
-            let subject_id = url.searchParams.get("subject_id");
+            let student_id = getParam("student_id");
+            let subject_id = getParam("subject_id");
 
             document.getElementById("grade-1").onclick = function(e) { grade(student_id, subject_id, 1); };
             document.getElementById("grade-2").onclick = function(e) { grade(student_id, subject_id, 2); };

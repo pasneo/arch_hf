@@ -162,3 +162,12 @@ a.table-button {
 .cancel-button {
     font-size: 24px;
 }
+
+.editor-input-base {
+    border: 1px solid #6c7ae0;
+    border-radius: 10px;
+    margin: 2px 0px;
+    padding: 2px 5px;
+    font-size: 16pt;
+    width: 400px;
+}
