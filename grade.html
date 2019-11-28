@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+        <nav class="menubar-nav">
+                    <div class="menubar-container-wrapper">
+                        <div class="menubar-container">
+                            <ul class="menubar">
+                                    <li><a href="students.html">Students</a></li>
+                                    <li><a href="lecturers.html">Lecturers</a></li>
+                                    <li><a href="subjects.html">Subjects</a></li>
+                                    <li><a href="exams.html">Exams</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        </nav>
+
+        <div class="maintitle">
+                <div class="title-container">
+                    <h2>Grade student</h2>
+                </div>
+        </div>
+
+        <div class="grade-button-container">
+            <a href="#" class="grade-button" id="grade-1">1</a>
+            <a href="#" class="grade-button" id="grade-2">2</a>
+            <a href="#" class="grade-button" id="grade-3">3</a>
+            <a href="#" class="grade-button" id="grade-4">4</a>
+            <a href="#" class="grade-button" id="grade-5">5</a>
+        </div>
+        
+        <div class="grade-button-container">
+            <a href="#" class="cancel-button" id="cancel">Cancel</a>
+        </div>
+
+    <script>
+
+        function requestData() {
+
+            let request = new XMLHttpRequest();
+
+            request.open("GET", "https://ghibliapi.herokuapp.com/films", true);
+
+            request.onload = function() {
+                // Begin accessing JSON data here
+                var data = JSON.parse(this.response)
+
+                if (request.status >= 200 && request.status < 400) {
+                    for(i=0; i<data.length; ++i)
+                        console.log(data[i].title);
+                } else {
+                    console.log('error')
+                }
+            }
+
+            request.send()
+
+        }
+
+        function init() {
+            
+            requestData();
+
+            let url = new URL(window.location.href);
+            let student_id = url.searchParams.get("student_id");
+            let subject_id = url.searchParams.get("subject_id");
+
+            document.getElementById("grade-1").onclick = function(e) { grade(student_id, subject_id, 1); };
+            document.getElementById("grade-2").onclick = function(e) { grade(student_id, subject_id, 2); };
+            document.getElementById("grade-3").onclick = function(e) { grade(student_id, subject_id, 3); };
+            document.getElementById("grade-4").onclick = function(e) { grade(student_id, subject_id, 4); };
+            document.getElementById("grade-5").onclick = function(e) { grade(student_id, subject_id, 5); };
+
+            document.getElementById("cancel").onclick = function(e) { window.history.back(); };
+
+        }
+        
+        function grade(student_id, subject_id, mark) {
+            //TODO
+            window.history.back();
+        }
+
+        document.onload = init();
+
+    </script>
+
+    </body>
+</html>

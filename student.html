@@ -178,7 +178,8 @@
 		//Just an example (to be deleted later)
 		function init() {
 			let json = '{	"id": 2,\
-							"name":"Ted Bundy",\
+							"firstName":"Ted",\
+							"lastName":"Bundy",\
 							"dateOfBirth":"11-11-2000",\
 							"address":"85 Howling St",\
 							"city":"New York",\
@@ -211,7 +212,7 @@
 			target_id = target.id;
 
 			//Fill target data fields
-            document.getElementById("target-name").innerHTML = target.name;
+            document.getElementById("target-name").innerHTML = target.firstName + ' ' + target.lastName;
             document.getElementById("target-dateofbirth").innerHTML = target.dateOfBirth;
             document.getElementById("target-address").innerHTML = target.address;
             document.getElementById("target-city").innerHTML = target.city;

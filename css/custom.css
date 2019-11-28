@@ -115,11 +115,12 @@ a.custom-button {
     cursor: pointer;
     font-size: 10pt;
     float: right;
+    color: #6c7ae0;
 }
 
 a.custom-button:hover {
-    padding: 1px 5px;
     background: #6c7ae0;
+    color: white;
 }
 
 a.table-button {
@@ -135,4 +136,29 @@ a.table-button {
 
 .admin {
     visibility: visible;
+}
+
+.grade-button-container {
+    padding: 30px;
+    text-align: center;
+}
+
+.grade-button, .cancel-button {
+    color: #6c7ae0;
+    border: 1px solid #6c7ae0;
+    border-radius: 5px;
+    font-size: 32px;
+    padding: 10px;
+    margin: 0 10px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.grade-button:hover, .cancel-button:hover {
+    background-color: #6c7ae0;
+    color: white;
+}
+
+.cancel-button {
+    font-size: 24px;
 }
