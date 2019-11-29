@@ -109,7 +109,7 @@ function CreateCourse(subject_id, code, type, lecturer_id, classroom) {
         code:code,
         type:type,
         lecturerId: lecturer_id,
-        classroom:classroom
+        classRoom:classroom
     });
 
     let result = {success:true, errorMessage:null, id:null};
@@ -134,7 +134,7 @@ function CreateExam(subject_id, date, classroom) {
     let json = JSON.stringify({
         subjectId:subject_id,
         date:date,
-        classroom:classroom
+        classRoom:classroom
     });
 
     let result = {success:true, errorMessage:null, id:null};
@@ -237,7 +237,7 @@ function UpdateCourse(course_id, code, type, lecturer_id, classroom) {
     let json = JSON.stringify({
         type:type,
         lecturerId:lecturer_id,
-        classroom:classroom
+        classRoom:classroom
     });
 
     let result = {success:true, errorMessage:null, id:null};
@@ -259,7 +259,7 @@ function UpdateExam(exam_id, subject_id, date, classroom) {
     let json = JSON.stringify({
         subjectId:subject_id,
         date:date,
-        classroom:classroom
+        classRoom:classroom
     });
 
     let result = {success:true, errorMessage:null, id:null};
@@ -490,7 +490,7 @@ function GetLecturers() {
                     "code":"E",\
                     "subjectId":0,\
                     "subjectName":"Software Architectures",\
-                    "classroom":"IB028"\
+                    "classRoom":"IB028"\
                 }\
             ]\
         },\
@@ -549,7 +549,7 @@ function GetSubjects() {
                     "type":"Lecture",\
                     "code":"E",\
                     "lecturerName":"John Williams",\
-                    "classroom":"IB028"\
+                    "classRoom":"IB028"\
                 }\
             ],\
             "students":[\
@@ -599,7 +599,7 @@ function GetExams() {
     let json = '{ "exams":[\
         {	"examId": 0,\
             "date":"2019-01-20",\
-            "classroom":"IB028",\
+            "classRoom":"IB028",\
             "subjectName":"Software Architectures",\
             "subjectId":0,\
             "students":[\
@@ -614,13 +614,13 @@ function GetExams() {
         },\
         {	"examId": 1,\
             "date":"2019-01-21",\
-            "classroom":"Q-I",\
+            "classRoom":"Q-I",\
             "subjectName":"Software and System Verification",\
             "subjectId":1\
         },\
         {	"examId": 2,\
             "date":"2019-01-22",\
-            "classroom":"IB027",\
+            "classRoom":"IB027",\
             "subjectName":"Software Architectures",\
             "subjectId":0\
         }\
