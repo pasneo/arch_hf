@@ -147,13 +147,17 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					window.location = 'delete.html';//TODO
+					deleteStudent(id);
 					e.stopPropagation();
 				};
 
 			newElement.onclick = function() { window.location = 'student.html?student_id='+id };
 
 			document.getElementById("tableRows").appendChild( newElement );
+		}
+
+		function deleteStudent(id) {
+			//TODO
 		}
 
 		window.onload=init;

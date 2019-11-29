@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+		<nav class="menubar-nav">
+				<div class="menubar-container-wrapper">
+					<div class="menubar-container">
+						<ul class="menubar">
+								<li><a href="students.html">Students</a></li>
+								<li><a href="lecturers.html">Lecturers</a></li>
+								<li><a href="subjects.html">Subjects</a></li>
+								<li><a href="exams.html">Exams</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			
+			<div class="maintitle">
+				<div class="title-container">
+					<h2 id="main-title"></h2>
+				</div>
+			</div>
+
+            <div class="desc-container">
+                <table>
+                    <tr>
+                        <td class="desc-title">Name</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-name" class="editor-input-base"/>
+                        </td>
+                        <td class="profile-pic" rowspan="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Code</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-code" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Credit</td>
+                        <td class="desc-content">
+                            <input type="number" id="target-credit" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            
+        <div class="maintitle">
+            <a href="#" class="base-button" id="submit-button">Submit</a>
+        </div>
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/common.js"></script>
+<!--===============================================================================================-->
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+
+	<script>
+
+		var subject_id;
+
+		function init() {
+
+			if (hasParam('subject_id')) {
+				subject_id = getParam('subject_id');
+				document.getElementById('main-title').innerHTML = "Edit subject";
+				FillFormWithExistingData();
+			}
+			else {
+				document.getElementById('main-title').innerHTML = "New subject";
+			}
+
+			document.getElementById('submit-button').onclick = function() { submitData(); }
+
+		}
+
+		function submitData() {
+			//TODO (POST or PUT data)
+		}
+
+		function FillFormWithExistingData() {
+			//TODO (GET data by id)
+		}
+
+		window.onload=init;
+
+	</script>
+
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>

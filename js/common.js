@@ -1,4 +1,9 @@
 
+function hasParam(paramName) {
+    var re = new RegExp('[?&]'+paramName+'=');
+    return re.test(location.search);
+}
+
 function getParam(paramName) {
     
     let url = new URL(window.location.href);
@@ -32,13 +37,14 @@ function isAuthenticated() {
 function newRequest(method, url, async) {
     let req = new XMLHttpRequest();
     req.open(method, url, async);
-    req.setRequestHeader("Authorization", "Bearer " + getAuthorizationToken());
+    if (isAuthenticated())
+        req.setRequestHeader("Authorization", "Bearer " + getAuthorizationToken());
     return req;
 }
 
-function GETRequest(url, func) {
+function GETRequest(url, func, async) {
 
-    let req = newRequest('GET', url, true);
+    let req = newRequest('GET', url, async);
 
     req.onreadystatechange = function() {
         func(req, req.response);
@@ -48,20 +54,30 @@ function GETRequest(url, func) {
 
 }
 
-function POSTRequest(url, json) {
+function POSTRequest(url, json, func, async) {
 
-    let req = newRequest('POST', url, true);
+    let req = newRequest('POST', url, async);
 
     req.setRequestHeader("Content-type", "application/json");
+    
+    req.onreadystatechange = function() {
+        func(req, req.response);
+    }
+
     req.send(json);
 
 }
 
-function PUTRequest(url, json) {
+function PUTRequest(url, json, func, async) {
     
-    let req = newRequest('PUT', url, true);
+    let req = newRequest('PUT', url, async);
 
     req.setRequestHeader("Content-type", "application/json");
+    
+    req.onreadystatechange = function() {
+        func(req, req.response);
+    }
+
     req.send(json);
 
 }

@@ -40,25 +40,38 @@
 
 			
 			<div class="maintitle">
+                <h6>New course for</h6>
 				<div class="title-container">
-					<h2 id="main-title"></h2>
+					<h2 id="subject-title"></h2>
 				</div>
 			</div>
 
             <div class="desc-container">
                 <table>
                     <tr>
-                        <td class="desc-title">Subject</td>
+                        <td class="desc-title">Code</td>
                         <td class="desc-content">
-                            <input type="text" id="target-subject" class="editor-input-base"/>
+                            <input type="text" id="target-code" class="editor-input-base"/>
                         </td>
                         <td class="profile-pic" rowspan="100">
                         </td>
                     </tr>
                     <tr>
-                        <td class="desc-title">Date</td>
+                        <td class="desc-title">Type</td>
                         <td class="desc-content">
-                            <input type="date" id="target-date" class="editor-input-base"/>
+                            <select class="editor-input-base" id="target-type">
+                                <option value="lecture">Lecture</option>
+                                <option value="practice">Practice</option>
+                                <option value="laboratory">Laboratory</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Lecturer</td>
+                        <td class="desc-content">
+                            <select class="editor-input-base" id="target-lecturer">
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -99,29 +112,49 @@
 
 	<script>
 
-		var exam_id;
+		var subject_id;
 
 		function init() {
 
-			if (hasParam('exam_id')) {
-				exam_id = getParam('exam_id');
-				document.getElementById('main-title').innerHTML = "Edit exam";
-				FillFormWithExistingData();
+			if (!hasParam('subject_id')) {
+				subject_id = getParam('subject_id');
+                document.getElementById('subject-title').innerHTML = getSubjectName();
+                fillSelectWithLecturers();
 			}
 			else {
-				document.getElementById('main-title').innerHTML = "New exam";
+				window.location = 'subjects.html';
 			}
 
 			document.getElementById('submit-button').onclick = function() { submitData(); }
 
-		}
+        }
+        
+        function getSubjectName() {
+            //TODO
+            return "Software Architectures";
+        }
 
 		function submitData() {
 			//TODO (POST or PUT data)
 		}
 
-		function FillFormWithExistingData() {
-			//TODO (GET exam data by id)
+		function fillSelectWithLecturers() {
+            let targetLecturer = document.getElementById('target-lecturer');
+
+            //TODO (GET lecturers and fill target-lecturer select tag)
+            
+            let option = document.createElement("option");
+            option.text = "John Malkovich";
+            targetLecturer.add(option);
+
+            option = document.createElement("option");
+            option.text = "Nicole Kidman";
+            targetLecturer.add(option);
+
+            option = document.createElement("option");
+            option.text = "Ted Bundy";
+            targetLecturer.add(option);
+
 		}
 
 		window.onload=init;

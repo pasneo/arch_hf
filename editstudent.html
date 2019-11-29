@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+		<nav class="menubar-nav">
+				<div class="menubar-container-wrapper">
+					<div class="menubar-container">
+						<ul class="menubar">
+								<li><a href="students.html">Students</a></li>
+								<li><a href="lecturers.html">Lecturers</a></li>
+								<li><a href="subjects.html">Subjects</a></li>
+								<li><a href="exams.html">Exams</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			
+			<div class="maintitle">
+				<div class="title-container">
+					<h2 id="main-title"></h2>
+				</div>
+			</div>
+
+            <div class="desc-container">
+                <table>
+                    <tr>
+                        <td class="desc-title">First name</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-firstName" class="editor-input-base"/>
+                        </td>
+                        <td class="profile-pic" rowspan="100">
+                            <img id="target-profile-pic"/>
+                            <input type="file" accept="image/x-png,image/jpeg" id="target-profile-pic-file" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Second name</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-secondName" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Date of birth</td>
+                        <td class="desc-content">
+                            <input type="date" id="target-dateofbirth" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Address</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-address" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">City</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-city" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Country</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-country" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">ZIP</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-zip" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">Phone</td>
+                        <td class="desc-content">
+                            <input type="text" id="target-phone" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc-title">E-mail</td>
+                        <td class="desc-content">
+                            <input type="email" id="target-email" class="editor-input-base"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            
+        <div class="maintitle">
+            <a href="#" class="base-button" id="submit-button">Submit</a>
+        </div>
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/common.js"></script>
+<!--===============================================================================================-->
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+
+	<script>
+
+		var student_id;
+
+		function init() {
+
+			if (hasParam('student_id')) {
+				student_id = getParam('student_id');
+				document.getElementById('main-title').innerHTML = "Edit student";
+				FillFormWithExistingData();
+			}
+			else {
+				document.getElementById('main-title').innerHTML = "New student";
+			}
+
+            document.getElementById('submit-button').onclick = function() { submitData(); }
+            
+            document.getElementById('target-profile-pic-file').onchange = function() {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('target-profile-pic').src = e.target.result;
+                }
+                reader.readAsDataURL(document.getElementById('target-profile-pic-file').files[0]);
+            }
+
+		}
+
+		function submitData() {
+			//TODO (POST or PUT data)
+		}
+
+		function FillFormWithExistingData() {
+			//TODO (GET data by id)
+		}
+
+		window.onload=init;
+
+	</script>
+
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>

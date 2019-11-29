@@ -138,12 +138,12 @@ a.table-button {
     visibility: visible;
 }
 
-.grade-button-container {
+.centered-button-container {
     padding: 30px;
     text-align: center;
 }
 
-.grade-button, .cancel-button {
+.grade-button, .base-button {
     color: #6c7ae0;
     border: 1px solid #6c7ae0;
     border-radius: 5px;
@@ -154,12 +154,12 @@ a.table-button {
     cursor: pointer;
 }
 
-.grade-button:hover, .cancel-button:hover {
+.grade-button:hover, .base-button:hover {
     background-color: #6c7ae0;
     color: white;
 }
 
-.cancel-button {
+.base-button {
     font-size: 24px;
 }
 
