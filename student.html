@@ -118,7 +118,6 @@
     
     <div class="maintitle">
             <h3>Grades</h3>
-			<a href="#" class="custom-button admin">Add new</a>
     </div>
     
         <div class="limiter">
@@ -159,6 +158,11 @@
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--===============================================================================================-->
+    <script src="js/common.js"></script>
+    <script src="js/dbman.js"></script>
+<!--===============================================================================================-->
+
 	<script>
 		$('.js-pscroll').each(function(){
 			var ps = new PerfectScrollbar(this);
@@ -175,8 +179,8 @@
 
 		var target_id;
 
-		//Just an example (to be deleted later)
 		function init() {
+			//Just an example (to be deleted later)
 			let json = '{	"id": 2,\
 							"firstName":"Ted",\
 							"lastName":"Bundy",\
@@ -202,6 +206,10 @@
 			document.getElementById("edit-profile-button").onclick = function() {
 				window.location = 'editstudent.html?student_id='+target_id;
 			};
+
+			document.getElementById('add-subject-button').onclick = function() {
+				window.location = 'selectsubject.html?type=student&student_id='+target_id;
+			}
 
 		}
 
@@ -254,7 +262,7 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					window.location = 'delete.html';//TODO
+					RemoveStudentFromSubject(target_id, id);
 					e.stopPropagation();
 				};
 			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id; };
@@ -270,31 +278,13 @@
             let newElement = document.createElement('tr');
             newElement.classList.add('custom-row', 'row100', 'body');
 
-			let deleteBttonCode = '<a href="#" class="custom-button admin">Delete</a>';
-			let gradeBttonCode = '<a href="#" class="custom-button admin">Grade</a>';
-
             newElement.innerHTML = '<td class="cell100 column1">'+subjectName+'</td>\
                                     <td class="cell100 column2">'+examDate+'</td>\
-                                    <td class="cell100 column3">'+grade+deleteBttonCode+gradeBttonCode+'</td>';
-
-			//Delete button click
-			newElement.getElementsByClassName("custom-button")[0].onclick =
-				function(e) {
-					window.location = 'delete.html';//TODO
-					e.stopPropagation();
-				};
-
-			//Grade button click
-			newElement.getElementsByClassName("custom-button")[1].onclick =
-				function(e) {
-					window.location = 'grade.html?student_id='+target_id+'&exam_id='+exam_id;//TODO
-					e.stopPropagation();
-				};
+                                    <td class="cell100 column3">'+grade+'</td>';
 
             newElement.onclick = function() { window.location = 'exam.html?id='+exam_id };
             document.getElementById("grades-table-rows").appendChild( newElement );
-        }
-
+		}
 
 		window.onload=init;
 

@@ -98,8 +98,10 @@
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <!--===============================================================================================-->
-	<script src="js/common.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/dbman.js"></script>
 <!--===============================================================================================-->
+
 	<script>
 		$('.js-pscroll').each(function(){
 			var ps = new PerfectScrollbar(this);
@@ -116,13 +118,14 @@
 
 		function init() {
 
-			if (!hasParam('subject_id')) {
+			if (hasParam('subject_id')) {
 				subject_id = getParam('subject_id');
                 document.getElementById('subject-title').innerHTML = getSubjectName();
                 fillSelectWithLecturers();
 			}
 			else {
-				window.location = 'subjects.html';
+				//TODO: give an error or throw back to subjects page
+				//window.location = 'subjects.html';
 			}
 
 			document.getElementById('submit-button').onclick = function() { submitData(); }

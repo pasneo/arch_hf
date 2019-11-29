@@ -38,67 +38,23 @@
 				</div>
 			</nav>
 
-    <div class="maintitle">
-		<h6>Lecturer</h6>
-		<div class="title-container">
-			<h2 id="target-name"></h2>
-			<a href="#" class="custom-button admin" id="edit-profile-button">Edit</a>
-		</div>
-    </div>
-
-
-    <div class="desc-container">
-        <table>
-            <tr>
-                <td class="desc-title">Date of birth</td>
-				<td class="desc-content" id="target-dateofbirth"></td>
-				<td class="profile-pic" rowspan="100">
-					<img id="target-profile-pic"/>
-				</td>
-            </tr>
-            <tr>
-                <td class="desc-title">Address</td>
-                <td class="desc-content" id="target-address"></td>
-            </tr>
-            <tr>
-                <td class="desc-title">City</td>
-                <td class="desc-content" id="target-city"></td>
-            </tr>
-            <tr>
-                <td class="desc-title">Country</td>
-                <td class="desc-content" id="target-country"></td>
-            </tr>
-            <tr>
-                <td class="desc-title">ZIP</td>
-                <td class="desc-content" id="target-zip"></td>
-            </tr>
-            <tr>
-                <td class="desc-title">Phone</td>
-                <td class="desc-content" id="target-phone"></td>
-            </tr>
-            <tr>
-                <td class="desc-title">E-mail</td>
-                <td class="desc-content" id="target-email"></td>
-            </tr>
-        </table>
-    </div>
-
 	<div class="maintitle">
-		<h3>Courses</h3>
+		<h2>Select Student</h2>
 	</div>
 
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
-				<div class="table100 ver1">
+				<div class="table100 ver1 m-b-110">
 					<div class="table100-head">
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column1">Code</th>
-									<th class="cell100 column2">Type</th>
-									<th class="cell100 column3">Subject</th>
-									<th class="cell100 column4">Classroom</th>
+									<!-- Add columns here -->
+									<th class="cell100 column1">First Name</th>
+									<th class="cell100 column2">Last name</th>
+									<th class="cell100 column3">Address</th>
+									<th class="cell100 column4">E-mail</th>
 								</tr>
 							</thead>
 						</table>
@@ -106,7 +62,7 @@
 
 					<div class="table100-body js-pscroll">
 						<table>
-							<tbody id="courses-table-rows">
+							<tbody id="tableRows">
 								
 							</tbody>
 						</table>
@@ -114,7 +70,7 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 
 
 <!--===============================================================================================-->	
@@ -143,85 +99,74 @@
 
 	<script>
 
-        window.onload=init;
-
-		var target_id;
+        var select_type;
+        var requested_id;
 
 		function init() {
-			//Just an example (to be deleted later)
-			let json = '{	"id": 2,\
-							"name":"Ted Bundy",\
-							"dateOfBirth":"11-11-2000",\
-							"address":"85 Howling St",\
-							"city":"New York",\
-							"country":"NY, USA",\
-							"zip":"10019",\
-							"phone":"123-456-7890",\
-							"email":"myemail@ny.com",\
-							"pic":"example-profile-pic.jpg",\
-							"courses":[]\
-						}';
-			ReadData(json);
+		    //Just an example (to be deleted later)
+			let json = '{ "students":[\
+							{	"id": 0,\
+								"firstName":"John",\
+								"lastName":"Williams",\
+								"address":"85 Howling St",\
+								"email":"mymail@mail.com"\
+							},\
+							{	"id": 1,\
+								"firstName":"Billy",\
+								"lastName":"Johnson",\
+								"address":"170 Wall St",\
+								"email":"billy@mail.com"\
+							},\
+							{	"id": 2,\
+								"firstName":"Anna",\
+								"lastName":"Olsen",\
+								"address":"21 Jump St",\
+								"email":"anna@mail.com"\
+							}\
+						]}';
+            ReadData(json);
+            
+            select_type = getParam('type');
 
-            AddCourseToTable(0, "L0", "Lecture", 0, "Software Architectures", "IB028");
-
-			document.getElementById("edit-profile-button").onclick = function() {
-				window.location = 'editlecturer.html?lecturer_id='+target_id;
-			};
+            //If we must select a student to register to a subject
+            if (select_type == 'subject') {
+                requested_id = getParam('subject_id');
+            }
 
 		}
 
 		function ReadData(json) {
 			
-			let target = JSON.parse(json);
+			let obj = JSON.parse(json);
+			let students = obj.students;
 
-			target_id = target.id;
-
-			//Fill target data fields
-            document.getElementById("target-name").innerHTML = target.name;
-            document.getElementById("target-dateofbirth").innerHTML = target.dateOfBirth;
-            document.getElementById("target-address").innerHTML = target.address;
-            document.getElementById("target-city").innerHTML = target.city;
-            document.getElementById("target-country").innerHTML = target.country;
-            document.getElementById("target-zip").innerHTML = target.zip;
-            document.getElementById("target-phone").innerHTML = target.phone;
-            document.getElementById("target-email").innerHTML = target.email;
-
-			//Set profile picture
-			document.getElementById("target-profile-pic").src = target.pic;
-
-			let courses = target.courses;
-
-			for(i=0; i<courses.length; ++i) {
-				let course = courses[i];
-				AddCourseToTable(course.id, course.code, course.type, course.subjectId, course.subjectName, course.classroom);
+			for(i=0; i<students.length; ++i) {
+				let student = students[i];
+				AddStudentToTable(student.id, student.firstName, student.lastName, student.address, student.email);
 			}
 
 		}
 
 		//This should be called when filling the table with data from DB
-		function AddCourseToTable(id, code, type, subjectId, subjectName, classroom) {
+		function AddStudentToTable(id, firstName, lastName, address, email) {
 			let newElement = document.createElement('tr');
+
 			newElement.classList.add('custom-row', 'row100', 'body');
 
-			let deleteBttonCode = '<a href="#" class="custom-button admin">Delete</a>';
+			newElement.innerHTML = '<td class="cell100 column1">'+firstName+'</td>\
+									<td class="cell100 column2">'+lastName+'</td>\
+									<td class="cell100 column3">'+address+'</td>\
+									<td class="cell100 column4">'+email+'</td>';
 
-			newElement.innerHTML = '<td class="cell100 column1">'+code+'</td>\
-									<td class="cell100 column2">'+type+'</td>\
-									<td class="cell100 column3">'+subjectName+'</td>\
-									<td class="cell100 column4">'+classroom+deleteBttonCode+'</td>';
+			newElement.onclick = function() {
+                if (select_type == 'subject') {
+                    AddStudentToSubject(id, requested_id);
+                    window.location = 'subject.html?subject_id='+requested_id;
+                }
+            };
 
-			//Delete button click
-			newElement.getElementsByClassName("custom-button")[0].onclick =
-				function(e) {
-					DeleteCourse(id);
-					e.stopPropagation();
-				};
-			newElement.onclick = function() { window.location = 'subject.html?subject_id='+subjectId; };
-
-			document.getElementById("courses-table-rows").appendChild( newElement );
+			document.getElementById("tableRows").appendChild( newElement );
 		}
-
 
 		window.onload=init;
 

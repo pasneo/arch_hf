@@ -139,6 +139,11 @@
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--===============================================================================================-->
+    <script src="js/common.js"></script>
+    <script src="js/dbman.js"></script>
+<!--===============================================================================================-->
+
 	<script>
 		$('.js-pscroll').each(function(){
 			var ps = new PerfectScrollbar(this);
@@ -172,6 +177,14 @@
 
 			document.getElementById("edit-profile-button").onclick = function() {
 				window.location = 'editsubject.html?subject_id='+target_id;
+			};
+			
+			document.getElementById("add-course-button").onclick = function() {
+				window.location = 'newcourse.html?subject_id='+target_id;
+			};
+			
+			document.getElementById("add-student-button").onclick = function() {
+				window.location = 'selectstudent.html?type=subject&subject_id='+target_id;
 			};
 
 		}
@@ -211,7 +224,7 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					window.location = 'delete.html';//TODO
+					DeleteCourse(id);
 					e.stopPropagation();
 				};
 
@@ -238,7 +251,7 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					window.location = 'delete.html';//TODO
+					RemoveStudentFromSubject(id, target_id);
 					e.stopPropagation();
 				};
 

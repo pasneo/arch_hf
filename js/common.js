@@ -7,7 +7,7 @@ function hasParam(paramName) {
 function getParam(paramName) {
     
     let url = new URL(window.location.href);
-    let student_id = url.searchParams.get(paramName);
+    return url.searchParams.get(paramName);
 
 }
 
