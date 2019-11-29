@@ -128,22 +128,16 @@
 
         window.onload=init;
 
-		var target_id;
+		var target_id;	//exam id
 		var subject_id;
 
 		//Just an example (to be deleted later)
 		function init() {
-			let json = '{	"id": 2,\
-							"subjectId":1,\
-							"subjectName":"Software Architectures",\
-							"date":"09-01-2019",\
-                            "classroom":"IB028",\
-							"students":[]\
-						}';
-			ReadData(json);
+			
+			if (!hasParam('exam_id')) window.location = 'exams.html';
+			target_id = getParam('exam_id');
 
-            AddStudentToTable(0, "Ted", "Bundy", "85 Howling St", "ted@mail.com");
-            AddStudentToTable(1, "Anna", "Olsen", "12 Wall St", "anna@mail.com");
+            FillData();
 
 			document.getElementById("edit-profile-button").onclick = function() {
 				window.location = 'editexam.html?exam_id='+target_id;
@@ -155,17 +149,25 @@
 
 		}
 
-		function ReadData(json) {
+		function FillData() {
 			
-			let target = JSON.parse(json);
+			let target = GetExam(target_id);
 
-			target_id = target.id;
 			subject_id = target.subjectId;
 
 			//Fill target data fields
             document.getElementById("target-subject").innerHTML = target.subjectName;
             document.getElementById("target-date").innerHTML = target.date;
             document.getElementById("target-classroom").innerHTML = target.classroom;
+
+			let students = target.students;
+
+			if (students) {
+				for(i=0; i<students.length; ++i) {
+					let student = students[i];
+					AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address, student.email);
+				}
+			}
 
 		}
 

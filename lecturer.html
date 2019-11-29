@@ -148,22 +148,11 @@
 		var target_id;
 
 		function init() {
-			//Just an example (to be deleted later)
-			let json = '{	"id": 2,\
-							"name":"Ted Bundy",\
-							"dateOfBirth":"11-11-2000",\
-							"address":"85 Howling St",\
-							"city":"New York",\
-							"country":"NY, USA",\
-							"zip":"10019",\
-							"phone":"123-456-7890",\
-							"email":"myemail@ny.com",\
-							"pic":"example-profile-pic.jpg",\
-							"courses":[]\
-						}';
-			ReadData(json);
+			
+			if (!hasParam('lecturer_id')) window.location = 'lecturers.html';
+			target_id = getParam('lecturer_id');
 
-            AddCourseToTable(0, "L0", "Lecture", 0, "Software Architectures", "IB028");
+			FillData();
 
 			document.getElementById("edit-profile-button").onclick = function() {
 				window.location = 'editlecturer.html?lecturer_id='+target_id;
@@ -171,14 +160,12 @@
 
 		}
 
-		function ReadData(json) {
-			
-			let target = JSON.parse(json);
+		function FillData() {
 
-			target_id = target.id;
+			let target = GetLecturer(target_id);
 
 			//Fill target data fields
-            document.getElementById("target-name").innerHTML = target.name;
+            document.getElementById("target-name").innerHTML = target.firstName + ' ' + target.lastName;
             document.getElementById("target-dateofbirth").innerHTML = target.dateOfBirth;
             document.getElementById("target-address").innerHTML = target.address;
             document.getElementById("target-city").innerHTML = target.city;
@@ -192,9 +179,11 @@
 
 			let courses = target.courses;
 
-			for(i=0; i<courses.length; ++i) {
-				let course = courses[i];
-				AddCourseToTable(course.id, course.code, course.type, course.subjectId, course.subjectName, course.classroom);
+			if (courses) {
+				for(i=0; i<courses.length; ++i) {
+					let course = courses[i];
+					AddCourseToTable(course.courseId, course.code, course.type, course.subjectId, course.subjectName, course.classroom);
+				}
 			}
 
 		}

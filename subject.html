@@ -160,20 +160,11 @@
 
 		var target_id;
 
-		//Just an example (to be deleted later)
 		function init() {
-			let json = '{	"id": 2,\
-							"name":"Software Architectures",\
-							"code":"BMEVIAUMA06",\
-                            "credit":4,\
-							"courses":[]\
-						}';
-			ReadData(json);
-
-            AddCourseToTable(0, "L0", "Lecture", 0, "Mr Nobody", "IB028");
-
-            AddStudentToTable(0, "Ted", "Bundy", "85 Howling St", "ted@mail.com");
-            AddStudentToTable(1, "Anna", "Olsen", "12 Wall St", "anna@mail.com");
+			
+			if (!hasParam('subject_id')) window.location = 'subjects.html';
+			target_id = getParam('subject_id');
+			FillData();
 
 			document.getElementById("edit-profile-button").onclick = function() {
 				window.location = 'editsubject.html?subject_id='+target_id;
@@ -189,11 +180,9 @@
 
 		}
 
-		function ReadData(json) {
+		function FillData() {
 			
-			let target = JSON.parse(json);
-
-			target_id = target.id;
+			let target = GetSubject(target_id);
 
 			//Fill target data fields
             document.getElementById("target-name").innerHTML = target.name;
@@ -202,9 +191,11 @@
 
 			let courses = target.courses;
 
-			for(i=0; i<courses.length; ++i) {
-				let course = courses[i];
-				AddCourseToTable(course.id, course.code, course.type, course.subjectId, course.subjectName, course.classroom);
+			if (courses) {
+				for(i=0; i<courses.length; ++i) {
+					let course = courses[i];
+					AddCourseToTable(course.courseId, course.code, course.type, course.lecturerId, course.lecturerName, course.classroom);
+				}
 			}
 
 		}

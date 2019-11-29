@@ -95,22 +95,45 @@ function GetStudents() {
     //Example (to be deleted)
     let json = '{ "students":[\
         {	"studentId": 0,\
-            "firstName":"John",\
-            "lastName":"Williams",\
-            "address":"85 Howling St",\
-            "email":"mymail@mail.com"\
+            "firstName":"Henry",\
+            "lastName":"Belford",\
+            "address":"125 Howling St",\
+            "dateOfBirth":"1992-01-01",\
+            "city":"New York",\
+            "country":"USA",\
+            "zip":"1234",\
+            "phone":"123-456-7890",\
+            "email":"mymail@mail.com",\
+            "pic":"example-profile-pic.jpg",\
+            "subjectsEnrolledIn":[\
+                {	"subjectId": 0,\
+                    "code":"BMEVIAUMA06",\
+                    "name":"Software Architectures",\
+                    "credit":4\
+                }\
+            ],\
+            "examsEnrolledIn":[],\
+            "grades":[\
+                {\
+                    "subjectName":"Software Architectures",\
+                    "updated":"2019-01-02",\
+                    "grade":3\
+                }\
+            ]\
         },\
         {	"studentId": 1,\
-            "firstName":"Billy",\
-            "lastName":"Johnson",\
-            "address":"170 Wall St",\
-            "email":"billy@mail.com"\
-        },\
-        {	"studentId": 2,\
-            "firstName":"Anna",\
-            "lastName":"Olsen",\
-            "address":"21 Jump St",\
-            "email":"anna@mail.com"\
+            "firstName":"Johnny",\
+            "lastName":"Depp",\
+            "address":"12 Wall St",\
+            "dateOfBirth":"1992-01-01",\
+            "city":"New York",\
+            "country":"USA",\
+            "zip":"1234",\
+            "phone":"123-456-7890",\
+            "email":"mymail@mail.com",\
+            "pic":"example-profile-pic.jpg",\
+            "subjectsEnrolledIn":[],\
+            "examsEnrolledIn":[]\
         }\
     ]}';
     return JSON.parse(json).students;
@@ -127,10 +150,21 @@ function GetLecturers() {
             "address":"85 Howling St",\
             "dateOfBirth":"1992-01-01",\
             "city":"New York",\
-            "country":"New York",\
-            "zip":"New York",\
+            "country":"USA",\
+            "zip":"1234",\
             "phone":"123-456-7890",\
-            "email":"mymail@mail.com"\
+            "email":"mymail@mail.com",\
+            "pic":"example-profile-pic.jpg",\
+            "courses":[\
+                {\
+                    "courseId":0,\
+                    "type":"Lecture",\
+                    "code":"E",\
+                    "subjectId":0,\
+                    "subjectName":"Software Architectures",\
+                    "classroom":"IB028"\
+                }\
+            ]\
         },\
         {	"lecturerId": 1,\
             "firstName":"Billy",\
@@ -138,10 +172,11 @@ function GetLecturers() {
             "address":"170 Wall St",\
             "dateOfBirth":"1992-01-01",\
             "city":"New York",\
-            "country":"New York",\
-            "zip":"New York",\
+            "country":"USA",\
+            "zip":"1234",\
             "phone":"123-456-7890",\
-            "email":"billy@mail.com"\
+            "email":"billy@mail.com",\
+            "pic":"example-profile-pic.jpg"\
         },\
         {	"lecturerId": 2,\
             "firstName":"Anna",\
@@ -149,10 +184,11 @@ function GetLecturers() {
             "address":"21 Jump St",\
             "dateOfBirth":"1992-01-01",\
             "city":"New York",\
-            "country":"New York",\
-            "zip":"New York",\
+            "country":"USA",\
+            "zip":"1234",\
             "phone":"123-456-7890",\
-            "email":"anna@mail.com"\
+            "email":"anna@mail.com",\
+            "pic":"example-profile-pic.jpg"\
         }\
     ]}';
     return JSON.parse(json).lecturers;
@@ -166,7 +202,16 @@ function GetSubjects() {
         {	"subjectId": 0,\
             "code":"BMEVIAUMA06",\
             "name":"Software Architectures",\
-            "credit":4\
+            "credit":4,\
+            "courses":[\
+                {\
+                    "courseId":0,\
+                    "type":"Lecture",\
+                    "code":"E",\
+                    "lecturerName":"John Williams",\
+                    "classroom":"IB028"\
+                }\
+            ]\
         },\
         {	"subjectId": 1,\
             "code":"BMEVIMIMA01",\
@@ -189,16 +234,28 @@ function GetExams() {
         {	"examId": 0,\
             "date":"2019-01-20",\
             "classroom":"IB028",\
-            "subjectId":0\
+            "subjectName":"Software Architectures",\
+            "subjectId":0,\
+            "students":[\
+                {\
+                    "studentId":0,\
+                    "firstName":"Billy",\
+                    "lastName":"Joel",\
+                    "address":"27 New York St",\
+                    "email":"joel@mail.com"\
+                }\
+            ]\
         },\
         {	"examId": 1,\
             "date":"2019-01-21",\
             "classroom":"Q-I",\
+            "subjectName":"Software and System Verification",\
             "subjectId":1\
         },\
         {	"examId": 2,\
             "date":"2019-01-22",\
             "classroom":"IB027",\
+            "subjectName":"Software Architectures",\
             "subjectId":0\
         }\
     ]}';

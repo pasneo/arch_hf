@@ -180,28 +180,11 @@
 		var target_id;
 
 		function init() {
-			//Just an example (to be deleted later)
-			let json = '{	"id": 2,\
-							"firstName":"Ted",\
-							"lastName":"Bundy",\
-							"dateOfBirth":"11-11-2000",\
-							"address":"85 Howling St",\
-							"city":"New York",\
-							"country":"NY, USA",\
-							"zip":"10019",\
-							"phone":"123-456-7890",\
-							"email":"myemail@ny.com",\
-							"pic":"example-profile-pic.jpg",\
-							"subjects":[],\
-							"exams":[]\
-						}';
-			ReadData(json);
 
-            AddSubjectToTable(0, "BMEVIAUMA06", "Software architectures", 4);
-            AddSubjectToTable(1, "BMEVIMIMA01", "System and Software Verification", 4);
+			if (!hasParam('student_id')) window.location = 'students.html';
 
-            AddGradeToTable(0, "Software architectures", "12-12-2019", 4);
-            AddGradeToTable(0, "Software architectures", "19-12-2019", null);
+			target_id = getParam('student_id')
+			FillData();
 
 			document.getElementById("edit-profile-button").onclick = function() {
 				window.location = 'editstudent.html?student_id='+target_id;
@@ -213,11 +196,9 @@
 
 		}
 
-		function ReadData(json) {
+		function FillData(json) {
 			
-			let target = JSON.parse(json);
-
-			target_id = target.id;
+			let target = GetStudent(target_id);
 
 			//Fill target data fields
             document.getElementById("target-name").innerHTML = target.firstName + ' ' + target.lastName;
@@ -232,18 +213,18 @@
 			//Set profile picture
 			document.getElementById("target-profile-pic").src = target.pic;
 
-			let subjects = target.subjects;
+			let subjects = target.subjectsEnrolledIn;
 
 			for(i=0; i<subjects.length; ++i) {
 				let subject = subjects[i];
 				AddSubjectToTable(subject.id, subject.code, subject.name, subject.credit);
 			}
 			
-			let exams = target.exams;
+			let grades = target.grades;
 
-			for(i=0; i<exams.length; ++i) {
-				let exam = exams[i];
-				AddGradeToTable(exam.id, exam.subjectName, exam.date, exam.grade);
+			for(i=0; i<grades.length; ++i) {
+				let grade = grades[i];
+				AddGradeToTable(grade.subjectName, grade.updated, grade.grade);
 			}
 
 		}
@@ -271,18 +252,18 @@
 		}
 
         //This should be called when filling the table with data from DB
-        function AddGradeToTable(exam_id, subjectName, examDate, grade) {
+        function AddGradeToTable(subjectName, date, grade) {
 
-			if (grade == null) grade = '-';
+			if (!grade) grade = '-';
 
             let newElement = document.createElement('tr');
             newElement.classList.add('custom-row', 'row100', 'body');
 
             newElement.innerHTML = '<td class="cell100 column1">'+subjectName+'</td>\
-                                    <td class="cell100 column2">'+examDate+'</td>\
+                                    <td class="cell100 column2">'+date+'</td>\
                                     <td class="cell100 column3">'+grade+'</td>';
 
-            newElement.onclick = function() { window.location = 'exam.html?id='+exam_id };
+            //newElement.onclick = function() { window.location = 'exam.html?id='+exam_id };
             document.getElementById("grades-table-rows").appendChild( newElement );
 		}
 
