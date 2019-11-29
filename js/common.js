@@ -42,7 +42,7 @@ function newRequest(method, url, async) {
     return req;
 }
 
-function GETRequest(url, func, async) {
+function GETRequest(url, async, func) {
 
     let req = newRequest('GET', url, async);
 
@@ -54,7 +54,7 @@ function GETRequest(url, func, async) {
 
 }
 
-function POSTRequest(url, json, func, async) {
+function POSTRequest(url, json, async, func) {
 
     let req = newRequest('POST', url, async);
 
@@ -68,11 +68,23 @@ function POSTRequest(url, json, func, async) {
 
 }
 
-function PUTRequest(url, json, func, async) {
+function PUTRequest(url, json, async, func) {
     
     let req = newRequest('PUT', url, async);
 
     req.setRequestHeader("Content-type", "application/json");
+    
+    req.onreadystatechange = function() {
+        func(req, req.response);
+    }
+
+    req.send(json);
+
+}
+
+function DELETERequest(url, async, func) {
+    
+    let req = newRequest('DELETE', url, async);
     
     req.onreadystatechange = function() {
         func(req, req.response);

@@ -1,98 +1,413 @@
 
+
+function API_URL(rel) {
+    return '/api/'+rel;
+}
+
+function API_URL_P(rel, p1) {
+    return '/api/'+rel+'/:'+p1;
+}
+
+function API_URL_P2(rel, p1, p2) {
+    return '/api/'+rel+'/:'+p1+':'+p2;
+}
+
 function CreateStudent(firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
-    //TODO (create entity and return an object containing {success, errorMessage, createdObjectId(id)})
-    return {"success":true, "errorMessage":null, "id":0};
+
+    let url = API_URL('students');
+
+    let json = JSON.stringify({
+        firstName:firstName,
+        lastName:lastName,
+        dateOfBirth:dateOfBirth,
+        address:address,
+        city:city,
+        country:country,
+        zip:zip,
+        phone:phone,
+        email:email
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+        else {
+            //TODO: get created entity's id
+        }
+    });
+
+    return result;
 }
 
 function CreateLecturer(firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
-    //TODO (create entity and return an object containing {success, errorMessage, createdObjectId(id)})
-    return {"success":true, "errorMessage":null, "id":0};
+
+    let url = API_URL('lecturers');
+
+    let json = JSON.stringify({
+        firstName:firstName,
+        lastName:lastName,
+        dateOfBirth:dateOfBirth,
+        address:address,
+        city:city,
+        country:country,
+        zip:zip,
+        phone:phone,
+        email:email
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+        else {
+            //TODO: get created entity's id
+        }
+    });
+
+    return result;
 }
 
 function CreateSubject(code, name, credit) {
-    //TODO (create entity and return an object containing {success, errorMessage, createdObjectId(id)})
-    return {"success":true, "errorMessage":null, "id":0};
+    
+    let url = API_URL('subjects');
+
+    let json = JSON.stringify({
+        code:code,
+        name:name,
+        credit:credit
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+        else {
+            //TODO: get created entity's id
+        }
+    });
+
+    return result;
+
 }
 
 function CreateCourse(subject_id, code, type, lecturer_id, classroom) {
-    //TODO (create entity and return an object containing {success, errorMessage, createdObjectId(id)})
-    return {"success":true, "errorMessage":null, "id":0};
+    
+    let url = API_URL('courses');
+
+    let json = JSON.stringify({
+        subjectId: subject_id,
+        code:code,
+        type:type,
+        lecturerId: lecturer_id,
+        classroom:classroom
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+        else {
+            //TODO: get created entity's id
+        }
+    });
+
+    return result;
 }
 
 function CreateExam(subject_id, date, classroom) {
-    //TODO (create entity and return an object containing {success, errorMessage, createdObjectId(id)})
-    return {"success":true, "errorMessage":null, "id":0};
+
+    let url = API_URL('exams');
+
+    let json = JSON.stringify({
+        subjectId:subject_id,
+        date:date,
+        classroom:classroom
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+        else {
+            //TODO: get created entity's id
+        }
+    });
+
+    return result;
 }
 
 function UpdateStudent(student_id, firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
-    //TODO
-    return {"success":true, "errorMessage":null, "id":0};
+    
+    let url = API_URL_P('student', student_id);
+
+    let json = JSON.stringify({
+        firstName:firstName,
+        lastName:lastName,
+        dateOfBirth:dateOfBirth,
+        address:address,
+        city:city,
+        country:country,
+        zip:zip,
+        phone:phone,
+        email:email
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
-    //TODO
-    return {"success":true, "errorMessage":null, "id":0};
+        
+    let url = API_URL_P('lecturer', lecturer_id);
+
+    let json = JSON.stringify({
+        firstName:firstName,
+        lastName:lastName,
+        dateOfBirth:dateOfBirth,
+        address:address,
+        city:city,
+        country:country,
+        zip:zip,
+        phone:phone,
+        email:email
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function UpdateSubject(subject_id, code, name, credit) {
-    //TODO
-    return {"success":true, "errorMessage":null, "id":0};
+            
+    let url = API_URL_P('subject', subject_id);
+
+    let json = JSON.stringify({
+        code:code,
+        name:name,
+        credit:credit
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function UpdateCourse(course_id, code, type, lecturer_id, classroom) {
-    //TODO
-    return {"success":true, "errorMessage":null, "id":0};
+            
+    let url = API_URL_P('course', course_id);
+
+    let json = JSON.stringify({
+        type:type,
+        lecturerId:lecturer_id,
+        classroom:classroom
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function UpdateExam(exam_id, subject_id, date, classroom) {
-    //TODO
-    return {"success":true, "errorMessage":null, "id":0};
+            
+    let url = API_URL_P('exam', exam_id);
+
+    let json = JSON.stringify({
+        subjectId:subject_id,
+        date:date,
+        classroom:classroom
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function DeleteStudent(student_id) {
-	//TODO
+
+    let url = API_URL_P('student', student_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    DELETERequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function DeleteLecturer(lecturer_id) {
-	//TODO
+
+    let url = API_URL_P('lecturer', lecturer_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    DELETERequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function DeleteSubject(subject_id) {
-	//TODO
+
+    let url = API_URL_P('subject', subject_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    DELETERequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function DeleteCourse(course_id) {
-	//TODO
+
+    let url = API_URL_P('course', course_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    DELETERequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function DeleteExam(exam_id) {
-	//TODO
+
+    let url = API_URL_P('exam', exam_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    DELETERequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function RemoveStudentFromSubject(student_id, subject_id) {
-    //TODO
+    
+    let url = API_URL_P2('enroll', student_id, subject_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function AddStudentToSubject(student_id, subject_id) {
-    //TODO (register student to subject)
+    
+    let url = API_URL_P2('enroll', student_id, subject_id);
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+    });
+
+    return result;
 }
 
 function RemoveStudentFromExam(student_id, exam_id) {
     //TODO
+    return {"success":true, "errorMessage":null};
 }
 
 function AddStudentToExam(student_id, exam_id) {
     //TODO (register student to exam)
+    return {"success":true, "errorMessage":null};
 }
 
 function GradeStudent(student_id, subject_id, grade) {
+    
+    let url = API_URL_P2('grade', student_id, subject_id);
+
     //TODO
+    
+    return {"success":true, "errorMessage":null};
 }
 
 function GetStudents() {
-    //TODO (returns an array of objects)
 
-    //Example (to be deleted)
+    //To be deleted {
     let json = '{ "students":[\
         {	"studentId": 0,\
             "firstName":"Henry",\
@@ -137,12 +452,25 @@ function GetStudents() {
         }\
     ]}';
     return JSON.parse(json).students;
+    //}
+    
+    let url = API_URL('students');
+
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
 
 }
 
 function GetLecturers() {
-    //TODO (returns an array of objects)
-
+    
+    //To be deleted {
     let json = '{ "lecturers":[\
         {	"lecturerId": 0,\
             "firstName":"John",\
@@ -192,12 +520,24 @@ function GetLecturers() {
         }\
     ]}';
     return JSON.parse(json).lecturers;
+    //}
+    
+    let url = API_URL('lecturers');
 
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
 }
 
 function GetSubjects() {
-    //TODO (returns an array of objects)
-
+    
+    //To be deleted {
     let json = '{ "subjects":[\
         {	"subjectId": 0,\
             "code":"BMEVIAUMA06",\
@@ -220,7 +560,19 @@ function GetSubjects() {
         }\
     ]}';
     return JSON.parse(json).subjects;
+    //}
+    
+    let url = API_URL('subjects');
 
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
 }
 
 function GetCourses() {
@@ -228,8 +580,8 @@ function GetCourses() {
 }
 
 function GetExams() {
-    //TODO (returns an array of objects)
-
+    
+    //To be deleted {
     let json = '{ "exams":[\
         {	"examId": 0,\
             "date":"2019-01-20",\
@@ -260,40 +612,97 @@ function GetExams() {
         }\
     ]}';
     return JSON.parse(json).exams;
+    //}
+    
+    let url = API_URL('exams');
 
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
 }
 
 
 function GetStudent(student_id) {
-    //TODO (returns an object)
-
+    
+    //To be deleted {
     let students = GetStudents();
 
     for(i=0; i<students.length; ++i) {
         if (students[i].studentId == student_id) return students[i];
     }
 
+    return null;
+    //}
+
+    let url = API_URL_P('student', student_id);
+
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
+
 }
 
 function GetLecturer(lecturer_id) {
-    //TODO (returns an object)
-
+    
+    //To be deleted {
     let lecturers = GetLecturers();
 
     for(i=0; i<lecturers.length; ++i) {
         if (lecturers[i].lecturerId == lecturer_id) return lecturers[i];
     }
 
+    return null;
+    //}
+
+    let url = API_URL_P('lecturer', lecturer_id);
+
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
+
 }
 
 function GetSubject(subject_id) {
-    //TODO (returns an object)
 
+    //To be deleted {
     let subjects = GetSubjects();
 
     for(i=0; i<subjects.length; ++i) {
         if (subjects[i].subjectId == subject_id) return subjects[i];
     }
+
+    return null;
+    //}
+
+    let url = API_URL_P('subject', subject_id);
+
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
 
 }
 
@@ -302,12 +711,27 @@ function GetCourse(course_id) {
 }
 
 function GetExam(exam_id) {
-    //TODO (returns an object)
-
+    
+    //To be deleted {
     let exams = GetExams();
 
     for(i=0; i<exams.length; ++i) {
         if (exams[i].examId == exam_id) return exams[i];
     }
+
+    return null;
+    //}
+
+    let url = API_URL_P('exam', exam_id);
+
+    let result;
+
+    GETRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result = JSON.parse(req.responseText);
+        }
+    });
+
+    return result;
 
 }
