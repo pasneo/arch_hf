@@ -135,7 +135,7 @@ a.table-button {
 }
 
 .admin {
-    visibility: visible;
+    visibility: hidden;
 }
 
 .centered-button-container {

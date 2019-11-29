@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Table V04</title>
+	<title>Subjects</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -177,6 +177,8 @@
 			document.getElementById("add-student-button").onclick = function() {
 				window.location = 'selectstudent.html?type=subject&subject_id='+target_id;
 			};
+			
+			ShowAdminControlsIfNeeded();
 
 		}
 
@@ -195,6 +197,15 @@
 				for(i=0; i<courses.length; ++i) {
 					let course = courses[i];
 					AddCourseToTable(course.courseId, course.code, course.type, course.lecturerId, course.lecturerName, course.classroom);
+				}
+			}
+
+			let students = target.students;
+
+			if (students) {
+				for(i=0; i<students.length; ++i) {
+					let student = students[i];
+					AddStudentToTable(student.studentId, student.firstName,student.lastName, student.address, student.email);
 				}
 			}
 

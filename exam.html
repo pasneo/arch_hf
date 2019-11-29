@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Table V04</title>
+	<title>Exam</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -133,7 +133,7 @@
 
 		//Just an example (to be deleted later)
 		function init() {
-			
+
 			if (!hasParam('exam_id')) window.location = 'exams.html';
 			target_id = getParam('exam_id');
 
@@ -146,6 +146,8 @@
 			document.getElementById("add-student-button").onclick = function() {
 				window.location = 'selectstudent.html?type=exam&exam_id='+target_id;
 			};
+			
+			ShowAdminControlsIfNeeded();
 
 		}
 

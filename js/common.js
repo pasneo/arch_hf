@@ -24,13 +24,18 @@ function isAuthenticated() {
     if (token) {
         const decodedToken = jwtDecode(token); //TODO: where is jwtDecode defined?
         if (decodedToken.exp * 1000 < Date.now()) {
-            window.location.href = '/login';
             return false;
         }
         else {
             return true;
         }
     }
+    return false;
+}
+
+function requireAuthentication() {
+    if (isAuthenticated()) return true;
+    else window.location.href = 'login.html';
     return false;
 }
 
@@ -96,4 +101,17 @@ function DELETERequest(url, async, func) {
 
 function paramURL(base, param) {
     return base + param;
+}
+
+function ShowAdminControlsIfNeeded() {
+
+    if (isAuthenticated()) {
+        let adminControls = document.getElementsByClassName('admin');
+        for(i=0; i<adminControls.length; ++i) adminControls[i].style.visibility = 'hidden';
+    }
+    else {
+        let adminControls = document.getElementsByClassName('admin');
+        for(i=0; i<adminControls.length; ++i) adminControls[i].style.visibility = 'visible';
+    }
+
 }

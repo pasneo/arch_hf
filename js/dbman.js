@@ -551,6 +551,20 @@ function GetSubjects() {
                     "lecturerName":"John Williams",\
                     "classroom":"IB028"\
                 }\
+            ],\
+            "students":[\
+                {\
+                    "studentId": 1,\
+                    "firstName":"Johnny",\
+                    "lastName":"Depp",\
+                    "address":"12 Wall St",\
+                    "dateOfBirth":"1992-01-01",\
+                    "city":"New York",\
+                    "country":"USA",\
+                    "zip":"1234",\
+                    "phone":"123-456-7890",\
+                    "email":"mymail@mail.com"\
+                }\
             ]\
         },\
         {	"subjectId": 1,\
@@ -733,5 +747,14 @@ function GetExam(exam_id) {
     });
 
     return result;
+
+}
+
+        
+function Login(username, password) {
+
+    let url = API_URL('login');
+
+    //TODO
 
 }
