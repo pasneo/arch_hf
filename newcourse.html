@@ -120,43 +120,50 @@
 
 			if (hasParam('subject_id')) {
 				subject_id = getParam('subject_id');
-                document.getElementById('subject-title').innerHTML = getSubjectName();
-                fillSelectWithLecturers();
+                document.getElementById('subject-title').innerHTML = GetSubjectName();
+                FillSelectWithLecturers();
 			}
 			else {
 				//TODO: give an error or throw back to subjects page
 				//window.location = 'subjects.html';
 			}
 
-			document.getElementById('submit-button').onclick = function() { submitData(); }
+			document.getElementById('submit-button').onclick = function() { SubmitData(); }
 
         }
         
-        function getSubjectName() {
-            //TODO
-            return "Software Architectures";
+        function GetSubjectName() {
+            let subject = GetSubject(subject_id);
+            return subject.name;
         }
 
-		function submitData() {
-			//TODO (POST or PUT data)
+		function SubmitData() {
+			
+			let code = document.getElementById('target-code').value;
+			let type = document.getElementById('target-type').value;
+			let lecturer_id = document.getElementById('target-lecturer').value;
+			let classroom = document.getElementById('target-classroom').value;
+
+			let res = CreateCourse(subject_id, code, type, lecturer_id, classroom);
+			
+			if (res.success) window.location = 'subject.html?subject_id='+subject_id;
+			else {
+				alert("Error: "+res.errorMessage);
+			}
+
 		}
 
-		function fillSelectWithLecturers() {
-            let targetLecturer = document.getElementById('target-lecturer');
+		function FillSelectWithLecturers() {
+            let selectLecturers = document.getElementById('target-lecturer');
+			
+			let lecturers = GetLecturers();
 
-            //TODO (GET lecturers and fill target-lecturer select tag)
-            
-            let option = document.createElement("option");
-            option.text = "John Malkovich";
-            targetLecturer.add(option);
-
-            option = document.createElement("option");
-            option.text = "Nicole Kidman";
-            targetLecturer.add(option);
-
-            option = document.createElement("option");
-            option.text = "Ted Bundy";
-            targetLecturer.add(option);
+			for(i=0; i<lecturers.length; ++i) {
+				let option = document.createElement("option");
+				option.value = lecturers[i].lecturerId;
+            	option.text = lecturers[i].firstName + ' ' + lecturers[i].lastName;
+            	selectLecturers.add(option);
+			}
 
 		}
 

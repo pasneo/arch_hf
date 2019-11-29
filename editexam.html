@@ -50,7 +50,9 @@
                     <tr>
                         <td class="desc-title">Subject</td>
                         <td class="desc-content">
-                            <input type="text" id="target-subject" class="editor-input-base"/>
+                            <select id="target-subject" class="editor-input-base">
+
+							</select>
                         </td>
                         <td class="profile-pic" rowspan="100">
                         </td>
@@ -86,6 +88,7 @@
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <!--===============================================================================================-->
 	<script src="js/common.js"></script>
+	<script src="js/dbman.js"></script>
 <!--===============================================================================================-->
 	<script>
 		$('.js-pscroll').each(function(){
@@ -99,9 +102,11 @@
 
 	<script>
 
-		var exam_id;
+		var exam_id = null;
 
 		function init() {
+
+			FillSelectWithSubjects();
 
 			if (hasParam('exam_id')) {
 				exam_id = getParam('exam_id');
@@ -112,16 +117,58 @@
 				document.getElementById('main-title').innerHTML = "New exam";
 			}
 
-			document.getElementById('submit-button').onclick = function() { submitData(); }
+
+
+			document.getElementById('submit-button').onclick = function() { SubmitData(); }
 
 		}
 
-		function submitData() {
-			//TODO (POST or PUT data)
+		function FillSelectWithSubjects() {
+
+			let selectSubjects = document.getElementById('target-subject');
+			
+			let subjects = GetSubjects();
+
+			for(i=0; i<subjects.length; ++i) {
+				let option = document.createElement("option");
+				option.value = subjects[i].subjectId;
+            	option.text = subjects[i].name;
+            	selectSubjects.add(option);
+			}
+
+		}
+
+		function SubmitData() {
+
+			let subject_id = document.getElementById('target-subject').value;
+			let date = document.getElementById('target-date').value;
+			let classroom = document.getElementById('target-classroom').value;
+
+			let res;
+
+			if (exam_id == null) {
+				res = CreateExam(subject_id, date, classroom);
+				if (res.success) exam_id = res.id;
+			}
+			else {
+				res = UpdateExam(exam_id, subject_id, date, classroom);
+			}
+			
+			if (res.success) window.location = 'exam.html?exam_id='+exam_id;
+			else {
+				alert("Error: "+res.errorMessage);
+			}
+
 		}
 
 		function FillFormWithExistingData() {
-			//TODO (GET exam data by id)
+
+			let exam = GetExam(exam_id);
+
+			document.getElementById('target-subject').value = exam.subjectId;
+			document.getElementById('target-date').value = exam.date;
+			document.getElementById('target-classroom').value = exam.classroom;
+
 		}
 
 		window.onload=init;

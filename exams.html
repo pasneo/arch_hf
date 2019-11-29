@@ -39,7 +39,10 @@
 			</nav>
 
 	<div class="maintitle">
-		<h2>Exams</h2>
+		<div class="title-container">
+			<h2>Exams</h2>
+			<a href="#" class="custom-button admin" id="add-exam-button">Create new</a>
+		</div>
 	</div>
 
 	<div class="limiter">
@@ -118,6 +121,11 @@
 							}\
 						]}';
 			ReadData(json);
+
+			document.getElementById('add-exam-button').onclick = function() {
+				window.location = 'editexam.html';
+			};
+
 		}
 
 		function ReadData(json) {

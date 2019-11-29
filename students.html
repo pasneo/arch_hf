@@ -39,7 +39,10 @@
 			</nav>
 
 	<div class="maintitle">
-		<h2>Students</h2>
+		<div class="title-container">
+			<h2>Students</h2>
+			<a href="#" class="custom-button admin" id="add-student-button">Create new</a>
+		</div>
 	</div>
 
 	<div class="limiter">
@@ -122,6 +125,10 @@
 							}\
 						]}';
 			ReadData(json);
+
+			document.getElementById('add-student-button').onclick = function() {
+				window.location = 'editstudent.html';
+			};
 		}
 
 		function ReadData(json) {

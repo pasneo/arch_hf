@@ -22,7 +22,7 @@ function getAuthorizationToken() {
 function isAuthenticated() {
     const token = getAuthorizationToken();
     if (token) {
-        const decodedToken = jwtDecode(token);
+        const decodedToken = jwtDecode(token); //TODO: where is jwtDecode defined?
         if (decodedToken.exp * 1000 < Date.now()) {
             window.location.href = '/login';
             return false;

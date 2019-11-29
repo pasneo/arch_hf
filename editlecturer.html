@@ -124,6 +124,7 @@
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <!--===============================================================================================-->
 	<script src="js/common.js"></script>
+	<script src="js/dbman.js"></script>
 <!--===============================================================================================-->
 	<script>
 		$('.js-pscroll').each(function(){
@@ -150,7 +151,7 @@
 				document.getElementById('main-title').innerHTML = "New lecturer";
 			}
 
-            document.getElementById('submit-button').onclick = function() { submitData(); }
+            document.getElementById('submit-button').onclick = function() { SubmitData(); }
             
             document.getElementById('target-profile-pic-file').onchange = function() {
                 let reader = new FileReader();
@@ -162,12 +163,50 @@
 
 		}
 
-		function submitData() {
-			//TODO (POST or PUT data)
+		function SubmitData() {
+            
+            let lecturer;
+			let firstName = document.getElementById('target-firstName').value;
+			let lastName = document.getElementById('target-lastName').value;
+			let dateOfBirth = document.getElementById('target-dateofbirth').value;
+			let address = document.getElementById('target-address').value;
+			let city = document.getElementById('target-city').value;
+			let country = document.getElementById('target-country').value;
+			let zip = document.getElementById('target-zip').value;
+			let phone = document.getElementById('target-phone').value;
+            let email = document.getElementById('target-email').value;
+            
+            let res;
+
+			if (lecturer_id == null) {
+				res = CreateLecturer(firstName, lastName, dateOfBirth, address, city, country, zip, phone, email);
+				if (res.success) lecturer_id = res.id;
+			}
+			else {
+				res = UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, city, country, zip, phone, email);
+			}
+			
+			if (res.success) window.location = 'lecturer.html?lecturer_id='+lecturer_id;
+			else {
+				alert("Error: "+res.errorMessage);
+			}
+
 		}
 
 		function FillFormWithExistingData() {
-			//TODO (GET data by id)
+            
+            let lecturer = GetLecturer(lecturer_id);
+
+			document.getElementById('target-firstName').value = lecturer.firstName;
+			document.getElementById('target-lastName').value = lecturer.lastName;
+			document.getElementById('target-dateofbirth').value = lecturer.dateOfBirth;
+			document.getElementById('target-address').value = lecturer.address;
+			document.getElementById('target-city').value = lecturer.city;
+			document.getElementById('target-country').value = lecturer.country;
+			document.getElementById('target-zip').value = lecturer.zip;
+			document.getElementById('target-phone').value = lecturer.phone;
+			document.getElementById('target-email').value = lecturer.email;
+
 		}
 
 		window.onload=init;
