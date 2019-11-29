@@ -103,35 +103,17 @@
 
 		//Just an example (to be deleted later)
 		function init() {
-			let json = '{ "subjects":[\
-							{	"id": 0,\
-								"code":"BMEVIAUMA06",\
-								"name":"Software Architectures",\
-								"credit":4\
-							},\
-							{	"id": 0,\
-								"code":"BMEVIMIMA01",\
-								"name":"Software and System Verification",\
-								"credit":4\
-							}\
-						]}';
-			ReadData(json);
+
+			let subjects = GetSubjects();
+
+			for(i=0; i<subjects.length; ++i) {
+				let subject = subjects[i];
+				AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
+			}
 
 			document.getElementById('add-subject-button').onclick = function() {
 				window.location = 'editsubject.html';
 			};
-		}
-
-		function ReadData(json) {
-			
-			let obj = JSON.parse(json);
-			let subjects = obj.subjects;
-
-			for(i=0; i<subjects.length; ++i) {
-				let subject = subjects[i];
-				AddSubjectToTable(subject.id, subject.code, subject.name, subject.credit);
-			}
-
 		}
 
 		//This should be called when filling the table with data from DB

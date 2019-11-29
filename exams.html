@@ -103,40 +103,17 @@
 
 		//Just an example (to be deleted later)
 		function init() {
-			let json = '{ "exams":[\
-							{	"id": 0,\
-								"date":"19-01-2019",\
-								"classroom":"IB028",\
-								"subjectName":"Software Architectures"\
-							},\
-							{	"id": 1,\
-								"date":"19-01-2019",\
-								"classroom":"Q-I",\
-								"subjectName":"Software and System Verification"\
-							},\
-							{	"id": 2,\
-								"date":"22-01-2019",\
-								"classroom":"IB027",\
-								"subjectName":"Software Architectures"\
-							}\
-						]}';
-			ReadData(json);
+
+			let exams = GetExams();
+
+			for(i=0; i<exams.length; ++i) {
+				let exam = exams[i];
+				AddTargetToTable(exam.examId, exam.subjectName, exam.date, exam.classroom);
+			}
 
 			document.getElementById('add-exam-button').onclick = function() {
 				window.location = 'editexam.html';
 			};
-
-		}
-
-		function ReadData(json) {
-			
-			let obj = JSON.parse(json);
-			let exams = obj.exams;
-
-			for(i=0; i<exams.length; ++i) {
-				let exam = exams[i];
-				AddTargetToTable(exam.id, exam.subjectName, exam.date, exam.classroom);
-			}
 
 		}
 
