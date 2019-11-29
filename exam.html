@@ -109,6 +109,11 @@
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--===============================================================================================-->
+    <script src="js/common.js"></script>
+    <script src="js/dbman.js"></script>
+<!--===============================================================================================-->
+
 	<script>
 		$('.js-pscroll').each(function(){
 			var ps = new PerfectScrollbar(this);
@@ -141,7 +146,11 @@
             AddStudentToTable(1, "Anna", "Olsen", "12 Wall St", "anna@mail.com");
 
 			document.getElementById("edit-profile-button").onclick = function() {
-				window.location = 'editsubject.html?subject_id='+target_id;
+				window.location = 'editexam.html?exam_id='+target_id;
+			};
+
+			document.getElementById("add-student-button").onclick = function() {
+				window.location = 'selectstudent.html?type=exam&exam_id='+target_id;
 			};
 
 		}
@@ -177,14 +186,14 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					window.location = 'delete.html';//TODO
+					RemoveStudentFromExam(id, target_id);
 					e.stopPropagation();
 				};
 				
 			//Grade button click
 			newElement.getElementsByClassName("custom-button")[1].onclick =
 				function(e) {
-					window.location = 'grade.html?student_id='+id+'&subject_id='+subject_id;//TODO
+					window.location = 'grade.html?student_id='+id+'&subject_id='+subject_id;
 					e.stopPropagation();
 				};
 

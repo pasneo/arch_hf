@@ -62,28 +62,27 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
     <script src="js/common.js"></script>
+    <script src="js/dbman.js"></script>
 
     <script>
 
         function init() {
-            
-            requestData();
 
             let student_id = getParam("student_id");
             let subject_id = getParam("subject_id");
 
-            document.getElementById("grade-1").onclick = function(e) { grade(student_id, subject_id, 1); };
-            document.getElementById("grade-2").onclick = function(e) { grade(student_id, subject_id, 2); };
-            document.getElementById("grade-3").onclick = function(e) { grade(student_id, subject_id, 3); };
-            document.getElementById("grade-4").onclick = function(e) { grade(student_id, subject_id, 4); };
-            document.getElementById("grade-5").onclick = function(e) { grade(student_id, subject_id, 5); };
+            document.getElementById("grade-1").onclick = function(e) { Grade(student_id, subject_id, 1); };
+            document.getElementById("grade-2").onclick = function(e) { Grade(student_id, subject_id, 2); };
+            document.getElementById("grade-3").onclick = function(e) { Grade(student_id, subject_id, 3); };
+            document.getElementById("grade-4").onclick = function(e) { Grade(student_id, subject_id, 4); };
+            document.getElementById("grade-5").onclick = function(e) { Grade(student_id, subject_id, 5); };
 
             document.getElementById("cancel").onclick = function(e) { window.history.back(); };
 
         }
         
-        function grade(student_id, subject_id, mark) {
-            //TODO
+        function Grade(student_id, subject_id, grade) {
+            GradeStudent(student_id, subject_id, grade);
             window.history.back();
         }
 
