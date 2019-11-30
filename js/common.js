@@ -116,7 +116,8 @@ function ShowAdminControlsIfNeeded() {
 
 }
 
-function FormatDate(date) {
+//Formats date to be usable on pages
+function FormatDateToLocal(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -128,4 +129,9 @@ function FormatDate(date) {
         day = '0' + day;
 
     return [year, month, day].join('-');
+}
+
+//Formats date to be usable by database
+function FormatDateToDB(date) {
+    return new Date(date).toISOString();
 }

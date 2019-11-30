@@ -21,7 +21,7 @@ function CreateStudent(firstName, lastName, dateOfBirth, address, city, country,
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dob:dateOfBirth,
+        dob:FormatDateToDB(dateOfBirth),
         address:{
             address:address,
             city:city,
@@ -55,7 +55,7 @@ function CreateLecturer(firstName, lastName, dateOfBirth, address, city, country
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dob:dateOfBirth,
+        dob:FormatDateToDB(dateOfBirth),
         address:{
             address:address,
             city:city,
@@ -143,7 +143,7 @@ function CreateExam(subject_id, date, classroom) {
 
     let json = JSON.stringify({
         subjectId:subject_id,
-        date:date,
+        date:FormatDateToDB(date),
         classRoom:classroom
     });
 
@@ -170,7 +170,7 @@ function UpdateStudent(student_id, firstName, lastName, dateOfBirth, address, ci
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dob:dateOfBirth,
+        dob:FormatDateToDB(dateOfBirth),
         address:{
             address:address,
             city:city,
@@ -197,7 +197,7 @@ function UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, 
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dob:dateOfBirth,
+        dob:FormatDateToDB(dateOfBirth),
         address:{
             address:address,
             city:city,
@@ -265,7 +265,7 @@ function UpdateExam(exam_id, subject_id, date, classroom) {
 
     let json = JSON.stringify({
         subjectId:subject_id,
-        date:date,
+        date:FormatDateToDB(date),
         classRoom:classroom
     });
 
