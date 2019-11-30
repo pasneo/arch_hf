@@ -204,7 +204,7 @@
 
 			//Fill target data fields
             document.getElementById("target-name").innerHTML = target.firstName + ' ' + target.lastName;
-            document.getElementById("target-dateofbirth").innerHTML = target.dob;
+            document.getElementById("target-dateofbirth").innerHTML = FormatDateToLocal(target.dob);
             document.getElementById("target-address").innerHTML = target.address.address;
             document.getElementById("target-city").innerHTML = target.address.city;
             document.getElementById("target-country").innerHTML = target.address.country;

@@ -166,7 +166,7 @@
 			let exam = GetExam(exam_id);
 
 			document.getElementById('target-subject').value = exam.subjectId;
-			document.getElementById('target-date').value = exam.date;
+			document.getElementById('target-date').value = FormatDateToLocal(exam.date);
 			document.getElementById('target-classroom').value = exam.classRoom;
 
 		}

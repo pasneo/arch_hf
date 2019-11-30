@@ -156,7 +156,7 @@ function CreateExam(subject_id, date, classroom) {
         }
         else {
             //TODO: get created entity's id
-            result.id = JSON.parse(req.responseText).subjectId;
+            result.id = JSON.parse(req.responseText).examId;
         }
     });
 
