@@ -559,6 +559,60 @@ function GetExam(exam_id) {
 
 }
 
+function GetPage(url, json) {
+
+    let result = {data:null, firstDocId:null, lastDocId:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        result.data = JSON.parse(req.responseText);
+        if (result.data && result.data.length > 0) {
+            result.firstDocId = result.data[0].studentId;
+            result.lastDocId = result.data[result.data.length-1].studentId;
+        }
+    });
+
+    return result;
+
+}
+
+function GetStudentsFirstPage() {
+    
+    let url = API_URL('studentsList');
+
+    let json = JSON.stringify({
+        paginate:"first"
+    });
+
+    return GetPage(url, json);
+    
+}
+
+function GetStudentsNextPage(lastDocId) {
+    
+    let url = API_URL('studentsList');
+
+    let json = JSON.stringify({
+        paginate:"next",
+        lastDocId:lastDocId
+    });
+
+    return GetPage(url, json);
+    
+}
+
+function GetStudentsPrevPage(firstDocId) {
+    
+    let url = API_URL('studentsList');
+
+    let json = JSON.stringify({
+        paginate:"prev",
+        firstDocId:firstDocId
+    });
+
+    return GetPage(url, json);
+    
+}
+
         
 function Login(username, password) {
 
