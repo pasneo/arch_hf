@@ -74,6 +74,11 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="centered-button-container">
+		<a href="#" class="base-button" id="prev-button">Prev</a>
+		<a href="#" class="base-button" id="next-button">Next</a>
+	</div>
 
 
 <!--===============================================================================================-->	
@@ -102,21 +107,75 @@
 
 	<script>
 
-		//Just an example (to be deleted later)
+		var page = null;
+		
 		function init() {
 
-			let lecturers = GetLecturers();
-
-			for(i=0; i<lecturers.length; ++i) {
-				let lecturer = lecturers[i];
-				AddTargetToTable(lecturer.teacherId, lecturer.firstName, lecturer.lastName, lecturer.address.address, lecturer.email);
-			}
+			page = GetLecturersFirstPage();
+			ShowPage();
 
 			document.getElementById('add-lecturer-button').onclick = function() {
 				window.location = 'editlecturer.html';
 			};
 			
 			ShowAdminControlsIfNeeded();
+		}
+
+		function PrevPage() {
+			page = GetLecturersPrevPage(page.firstDocId);
+			ShowPage();
+		}
+
+		function NextPage() {
+			page = GetLecturersNextPage(page.lastDocId);
+			ShowPage();
+		}
+
+		function ShowPage() {
+
+			let prevPage = GetLecturersPrevPage(page.firstDocId);
+			let nextPage = GetLecturersNextPage(page.lastDocId);
+
+			//Previous page exists
+			if (prevPage.data && prevPage.data.length > 0) {
+				document.getElementById('prev-button').classList.remove("disabled-button");
+				document.getElementById('prev-button').onclick = function() {PrevPage();};
+			}
+			//doesnt exist
+			else {
+				document.getElementById('prev-button').classList.add("disabled-button");
+				document.getElementById('prev-button').onclick = null;
+			}
+			
+			//Next page exists
+			if (nextPage.data && nextPage.data.length > 0) {
+				document.getElementById('next-button').classList.remove("disabled-button");
+				document.getElementById('next-button').onclick = function(){NextPage();};
+			}
+			//doesnt exist
+			else {
+				document.getElementById('next-button').classList.add("disabled-button");
+				document.getElementById('next-button').onclick = null;
+			}
+
+			ClearTable();
+			FillTable();
+
+		}
+
+		function ClearTable() {
+			document.getElementById("tableRows").innerHTML = "";
+		}
+
+		function FillTable() {
+
+			lecturers = page.data;
+
+			for(i=0; i<lecturers.length; ++i) {
+				let lecturer = lecturers[i];
+				AddTargetToTable(lecturer.teacherId, lecturer.firstName, lecturer.lastName, lecturer.address.address, lecturer.email);
+			}
+
 		}
 
 		//This should be called when filling the table with data from DB

@@ -157,16 +157,16 @@
 				document.getElementById('next-button').onclick = null;
 			}
 
-			ClearStudentsTable();
-			FillStudentsTable();
+			ClearTable();
+			FillTable();
 
 		}
 
-		function ClearStudentsTable() {
+		function ClearTable() {
 			document.getElementById("tableRows").innerHTML = "";
 		}
 
-		function FillStudentsTable() {
+		function FillTable() {
 
 			students = page.data;
 

@@ -73,6 +73,11 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="centered-button-container">
+		<a href="#" class="base-button" id="prev-button">Prev</a>
+		<a href="#" class="base-button" id="next-button">Next</a>
+	</div>
 
 
 <!--===============================================================================================-->	
@@ -101,21 +106,75 @@
 
 	<script>
 
-		//Just an example (to be deleted later)
+		var page = null;
+
 		function init() {
 
-			let exams = GetExams();
-
-			for(i=0; i<exams.length; ++i) {
-				let exam = exams[i];
-				AddTargetToTable(exam.examId, exam.subjectName, exam.date, exam.classRoom);
-			}
+			page = GetExamsFirstPage();
+			ShowPage();
 
 			document.getElementById('add-exam-button').onclick = function() {
 				window.location = 'editexam.html';
 			};
 			
 			ShowAdminControlsIfNeeded();
+
+		}
+
+		function PrevPage() {
+			page = GetExamsPrevPage(page.firstDocId);
+			ShowPage();
+		}
+
+		function NextPage() {
+			page = GetExamsNextPage(page.lastDocId);
+			ShowPage();
+		}
+
+		function ShowPage() {
+
+			let prevPage = GetExamsPrevPage(page.firstDocId);
+			let nextPage = GetExamsNextPage(page.lastDocId);
+
+			//Previous page exists
+			if (prevPage.data && prevPage.data.length > 0) {
+				document.getElementById('prev-button').classList.remove("disabled-button");
+				document.getElementById('prev-button').onclick = function() {PrevPage();};
+			}
+			//doesnt exist
+			else {
+				document.getElementById('prev-button').classList.add("disabled-button");
+				document.getElementById('prev-button').onclick = null;
+			}
+			
+			//Next page exists
+			if (nextPage.data && nextPage.data.length > 0) {
+				document.getElementById('next-button').classList.remove("disabled-button");
+				document.getElementById('next-button').onclick = function(){NextPage();};
+			}
+			//doesnt exist
+			else {
+				document.getElementById('next-button').classList.add("disabled-button");
+				document.getElementById('next-button').onclick = null;
+			}
+
+			ClearTable();
+			FillTable();
+
+		}
+
+		function ClearTable() {
+			document.getElementById("tableRows").innerHTML = "";
+		}
+
+		function FillTable() {
+
+			exams = page.data;
+
+			for(i=0; i<exams.length; ++i) {
+				let exam = exams[i];
+				AddTargetToTable(exam.examId, exam.subjectName, exam.date, exam.classRoom);
+			}
 
 		}
 

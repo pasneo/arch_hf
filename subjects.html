@@ -73,6 +73,11 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="centered-button-container">
+		<a href="#" class="base-button" id="prev-button">Prev</a>
+		<a href="#" class="base-button" id="next-button">Next</a>
+	</div>
 
 
 <!--===============================================================================================-->	
@@ -101,21 +106,75 @@
 
 	<script>
 
-		//Just an example (to be deleted later)
+		var page = null;
+
 		function init() {
 
-			let subjects = GetSubjects();
-
-			for(i=0; i<subjects.length; ++i) {
-				let subject = subjects[i];
-				AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
-			}
+			page = GetSubjectsFirstPage();
+			ShowPage();
 
 			document.getElementById('add-subject-button').onclick = function() {
 				window.location = 'editsubject.html';
 			};
 			
 			ShowAdminControlsIfNeeded();
+		}
+
+		function PrevPage() {
+			page = GetSubjectsPrevPage(page.firstDocId);
+			ShowPage();
+		}
+
+		function NextPage() {
+			page = GetSubjectsNextPage(page.lastDocId);
+			ShowPage();
+		}
+
+		function ShowPage() {
+
+			let prevPage = GetSubjectsPrevPage(page.firstDocId);
+			let nextPage = GetSubjectsNextPage(page.lastDocId);
+
+			//Previous page exists
+			if (prevPage.data && prevPage.data.length > 0) {
+				document.getElementById('prev-button').classList.remove("disabled-button");
+				document.getElementById('prev-button').onclick = function() {PrevPage();};
+			}
+			//doesnt exist
+			else {
+				document.getElementById('prev-button').classList.add("disabled-button");
+				document.getElementById('prev-button').onclick = null;
+			}
+			
+			//Next page exists
+			if (nextPage.data && nextPage.data.length > 0) {
+				document.getElementById('next-button').classList.remove("disabled-button");
+				document.getElementById('next-button').onclick = function(){NextPage();};
+			}
+			//doesnt exist
+			else {
+				document.getElementById('next-button').classList.add("disabled-button");
+				document.getElementById('next-button').onclick = null;
+			}
+
+			ClearTable();
+			FillTable();
+
+		}
+
+		function ClearTable() {
+			document.getElementById("tableRows").innerHTML = "";
+		}
+
+		function FillTable() {
+
+			subjects = page.data;
+
+			for(i=0; i<subjects.length; ++i) {
+				let subject = subjects[i];
+				AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
+			}
+
 		}
 
 		//This should be called when filling the table with data from DB

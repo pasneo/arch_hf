@@ -559,15 +559,15 @@ function GetExam(exam_id) {
 
 }
 
-function GetPage(url, json) {
+function GetPage(url, json, idProp) {
 
     let result = {data:null, firstDocId:null, lastDocId:null};
 
     POSTRequest(url, json, false, function(req, res) {
         result.data = JSON.parse(req.responseText);
         if (result.data && result.data.length > 0) {
-            result.firstDocId = result.data[0].studentId;
-            result.lastDocId = result.data[result.data.length-1].studentId;
+            result.firstDocId = result.data[0][idProp];
+            result.lastDocId = result.data[result.data.length-1][idProp];
         }
     });
 
@@ -575,42 +575,87 @@ function GetPage(url, json) {
 
 }
 
-function GetStudentsFirstPage() {
-    
-    let url = API_URL('studentsList');
-
+function GetFirstPage(url, idProp) {
     let json = JSON.stringify({
         paginate:"first"
     });
-
-    return GetPage(url, json);
-    
+    return GetPage(url, json, idProp);
 }
 
-function GetStudentsNextPage(lastDocId) {
-    
-    let url = API_URL('studentsList');
-
-    let json = JSON.stringify({
-        paginate:"next",
-        lastDocId:lastDocId
-    });
-
-    return GetPage(url, json);
-    
-}
-
-function GetStudentsPrevPage(firstDocId) {
-    
-    let url = API_URL('studentsList');
-
+function GetPrevPage(url, firstDocId, idProp) {
     let json = JSON.stringify({
         paginate:"prev",
         firstDocId:firstDocId
     });
+    return GetPage(url, json, idProp);
+}
 
-    return GetPage(url, json);
-    
+function GetNextPage(url, lastDocId, idProp) {
+    let json = JSON.stringify({
+        paginate:"next",
+        lastDocId:lastDocId
+    });
+    return GetPage(url, json, idProp);
+}
+
+function GetStudentsFirstPage() {
+    let url = API_URL('studentsList');
+    return GetFirstPage(url, 'studentId');
+}
+
+function GetStudentsPrevPage(firstDocId) {
+    let url = API_URL('studentsList');
+    return GetPrevPage(url, firstDocId, 'studentId');
+}
+
+function GetStudentsNextPage(lastDocId) {
+    let url = API_URL('studentsList');
+    return GetNextPage(url, lastDocId, 'studentId');
+}
+
+function GetLecturersFirstPage() {
+    let url = API_URL('teachersList');
+    return GetFirstPage(url, 'teacherId');
+}
+
+function GetLecturersPrevPage(firstDocId) {
+    let url = API_URL('teachersList');
+    return GetPrevPage(url, firstDocId, 'teacherId');
+}
+
+function GetLecturersNextPage(lastDocId) {
+    let url = API_URL('teachersList');
+    return GetNextPage(url, lastDocId, 'teacherId');
+}
+
+function GetSubjectsFirstPage() {
+    let url = API_URL('subjectsList');
+    return GetFirstPage(url, 'subjectId');
+}
+
+function GetSubjectsPrevPage(firstDocId) {
+    let url = API_URL('subjectsList');
+    return GetPrevPage(url, firstDocId, 'subjectId');
+}
+
+function GetSubjectsNextPage(lastDocId) {
+    let url = API_URL('subjectsList');
+    return GetNextPage(url, lastDocId, 'subjectId');    
+}
+
+function GetExamsFirstPage() {
+    let url = API_URL('examsList');
+    return GetFirstPage(url, 'examId');
+}
+
+function GetExamsPrevPage(firstDocId) {
+    let url = API_URL('examsList');
+    return GetPrevPage(url, firstDocId, 'examId');
+}
+
+function GetExamsNextPage(lastDocId) {
+    let url = API_URL('examsList');
+    return GetNextPage(url, lastDocId, 'examId');    
 }
 
         
