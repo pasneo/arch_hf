@@ -245,11 +245,12 @@
 			newElement.classList.add('custom-row', 'row100', 'body');
 
 			let deleteButtonCode = '<a href="#" class="custom-button admin">Delete</a>';
+			let gradeButtonCode = '<a href="#" class="custom-button admin">Grade</a>';
 
 			newElement.innerHTML = '<td class="cell100 column1">'+firstName+'</td>\
 									<td class="cell100 column2">'+lastName+'</td>\
 									<td class="cell100 column3">'+address+'</td>\
-									<td class="cell100 column4">'+email+deleteButtonCode+'</td>';
+									<td class="cell100 column4">'+email+deleteButtonCode+gradeButtonCode+'</td>';
 
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
@@ -257,6 +258,13 @@
 					e.stopPropagation();
 					RemoveStudentFromSubject(id, target_id);
 					location.reload();
+				};
+
+			//Grade button click
+			newElement.getElementsByClassName("custom-button")[1].onclick =
+				function(e) {
+					e.stopPropagation();
+					window.location = 'grade.html?student_id='+id+'&subject_id='+target_id;
 				};
 
 			newElement.onclick = function() { window.location = 'student.html?student_id='+id };
