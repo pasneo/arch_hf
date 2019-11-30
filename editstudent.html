@@ -198,11 +198,11 @@
 
 			document.getElementById('target-firstName').value = student.firstName;
 			document.getElementById('target-lastName').value = student.lastName;
-			document.getElementById('target-dateofbirth').value = student.dateOfBirth;
-			document.getElementById('target-address').value = student.address;
-			document.getElementById('target-city').value = student.city;
-			document.getElementById('target-country').value = student.country;
-			document.getElementById('target-zip').value = student.zip;
+			document.getElementById('target-dateofbirth').value = FormatDate(student.dob);
+			document.getElementById('target-address').value = student.address.address;
+			document.getElementById('target-city').value = student.address.city;
+			document.getElementById('target-country').value = student.address.country;
+			document.getElementById('target-zip').value = student.address.zip;
 			document.getElementById('target-phone').value = student.phone;
             document.getElementById('target-email').value = student.email;
             

@@ -1,15 +1,17 @@
 
 
+var BASE_API_URL = "https://europe-west1-szoftarch-bme.cloudfunctions.net/api/";
+
 function API_URL(rel) {
-    return '/api/'+rel;
+    return BASE_API_URL+rel;
 }
 
 function API_URL_P(rel, p1) {
-    return '/api/'+rel+'/:'+p1;
+    return BASE_API_URL+rel+'/'+p1;
 }
 
 function API_URL_P2(rel, p1, p2) {
-    return '/api/'+rel+'/:'+p1+':'+p2;
+    return BASE_API_URL+rel+'/'+p1+'&'+p2;
 }
 
 function CreateStudent(firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
@@ -19,11 +21,13 @@ function CreateStudent(firstName, lastName, dateOfBirth, address, city, country,
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dateOfBirth:dateOfBirth,
-        address:address,
-        city:city,
-        country:country,
-        zip:zip,
+        dob:dateOfBirth,
+        address:{
+            address:address,
+            city:city,
+            country:country,
+            zip:zip
+        },
         phone:phone,
         email:email
     });
@@ -37,6 +41,7 @@ function CreateStudent(firstName, lastName, dateOfBirth, address, city, country,
         }
         else {
             //TODO: get created entity's id
+            result.id = JSON.parse(req.responseText).studentId;
         }
     });
 
@@ -45,16 +50,18 @@ function CreateStudent(firstName, lastName, dateOfBirth, address, city, country,
 
 function CreateLecturer(firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
 
-    let url = API_URL('lecturers');
+    let url = API_URL('teachers');
 
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dateOfBirth:dateOfBirth,
-        address:address,
-        city:city,
-        country:country,
-        zip:zip,
+        dob:dateOfBirth,
+        address:{
+            address:address,
+            city:city,
+            country:country,
+            zip:zip
+        },
         phone:phone,
         email:email
     });
@@ -68,6 +75,7 @@ function CreateLecturer(firstName, lastName, dateOfBirth, address, city, country
         }
         else {
             //TODO: get created entity's id
+            result.id = JSON.parse(req.responseText).teacherId;
         }
     });
 
@@ -75,7 +83,7 @@ function CreateLecturer(firstName, lastName, dateOfBirth, address, city, country
 }
 
 function CreateSubject(code, name, credit) {
-    
+
     let url = API_URL('subjects');
 
     let json = JSON.stringify({
@@ -93,10 +101,12 @@ function CreateSubject(code, name, credit) {
         }
         else {
             //TODO: get created entity's id
+            result.id = JSON.parse(req.responseText).subjectId;
         }
     });
 
     return result;
+
 
 }
 
@@ -108,7 +118,7 @@ function CreateCourse(subject_id, code, type, lecturer_id, classroom) {
         subjectId: subject_id,
         code:code,
         type:type,
-        lecturerId: lecturer_id,
+        teacherId: lecturer_id,
         classRoom:classroom
     });
 
@@ -146,6 +156,7 @@ function CreateExam(subject_id, date, classroom) {
         }
         else {
             //TODO: get created entity's id
+            result.id = JSON.parse(req.responseText).subjectId;
         }
     });
 
@@ -154,16 +165,18 @@ function CreateExam(subject_id, date, classroom) {
 
 function UpdateStudent(student_id, firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
     
-    let url = API_URL_P('student', student_id);
+    let url = API_URL_P('students', student_id);
 
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dateOfBirth:dateOfBirth,
-        address:address,
-        city:city,
-        country:country,
-        zip:zip,
+        dob:dateOfBirth,
+        address:{
+            address:address,
+            city:city,
+            country:country,
+            zip:zip
+        },
         phone:phone,
         email:email
     });
@@ -171,10 +184,7 @@ function UpdateStudent(student_id, firstName, lastName, dateOfBirth, address, ci
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+        //TODO: check error
     });
 
     return result;
@@ -182,16 +192,18 @@ function UpdateStudent(student_id, firstName, lastName, dateOfBirth, address, ci
 
 function UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
         
-    let url = API_URL_P('lecturer', lecturer_id);
+    let url = API_URL_P('teachers', lecturer_id);
 
     let json = JSON.stringify({
         firstName:firstName,
         lastName:lastName,
-        dateOfBirth:dateOfBirth,
-        address:address,
-        city:city,
-        country:country,
-        zip:zip,
+        dob:dateOfBirth,
+        address:{
+            address:address,
+            city:city,
+            country:country,
+            zip:zip
+        },
         phone:phone,
         email:email
     });
@@ -199,18 +211,15 @@ function UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, 
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+        //TODO: check error
     });
 
     return result;
 }
 
 function UpdateSubject(subject_id, code, name, credit) {
-            
-    let url = API_URL_P('subject', subject_id);
+
+    let url = API_URL_P('subjects', subject_id);
 
     let json = JSON.stringify({
         code:code,
@@ -221,13 +230,11 @@ function UpdateSubject(subject_id, code, name, credit) {
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+        //TODO: check error
     });
 
     return result;
+
 }
 
 function UpdateCourse(course_id, code, type, lecturer_id, classroom) {
@@ -236,7 +243,7 @@ function UpdateCourse(course_id, code, type, lecturer_id, classroom) {
 
     let json = JSON.stringify({
         type:type,
-        lecturerId:lecturer_id,
+        teacherId:lecturer_id,
         classRoom:classroom
     });
 
@@ -254,7 +261,7 @@ function UpdateCourse(course_id, code, type, lecturer_id, classroom) {
 
 function UpdateExam(exam_id, subject_id, date, classroom) {
             
-    let url = API_URL_P('exam', exam_id);
+    let url = API_URL_P('exams', exam_id);
 
     let json = JSON.stringify({
         subjectId:subject_id,
@@ -265,10 +272,10 @@ function UpdateExam(exam_id, subject_id, date, classroom) {
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
+        /*if (req.status < 200 || req.status > 299) {
             result.success = false;
             result.errorMessage = "Something went wrong";
-        }
+        }*/
     });
 
     return result;
@@ -276,15 +283,12 @@ function UpdateExam(exam_id, subject_id, date, classroom) {
 
 function DeleteStudent(student_id) {
 
-    let url = API_URL_P('student', student_id);
+    let url = API_URL_P('students', student_id);
 
     let result = {success:true, errorMessage:null, id:null};
 
-    DELETERequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+    DELETERequest(url, false, function(req, res) {
+        //TODO: error handling
     });
 
     return result;
@@ -292,15 +296,12 @@ function DeleteStudent(student_id) {
 
 function DeleteLecturer(lecturer_id) {
 
-    let url = API_URL_P('lecturer', lecturer_id);
+    let url = API_URL_P('teachers', lecturer_id);
 
     let result = {success:true, errorMessage:null, id:null};
 
-    DELETERequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+    DELETERequest(url, false, function(req, res) {
+        //TODO: error handling
     });
 
     return result;
@@ -308,15 +309,12 @@ function DeleteLecturer(lecturer_id) {
 
 function DeleteSubject(subject_id) {
 
-    let url = API_URL_P('subject', subject_id);
+    let url = API_URL_P('subjects', subject_id);
 
     let result = {success:true, errorMessage:null, id:null};
 
-    DELETERequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+    DELETERequest(url, false, function(req, res) {
+        //TODO: error handling
     });
 
     return result;
@@ -324,15 +322,12 @@ function DeleteSubject(subject_id) {
 
 function DeleteCourse(course_id) {
 
-    let url = API_URL_P('course', course_id);
+    let url = API_URL_P('courses', course_id);
 
     let result = {success:true, errorMessage:null, id:null};
 
-    DELETERequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+    DELETERequest(url, false, function(req, res) {
+        //TODO: error handling
     });
 
     return result;
@@ -340,15 +335,12 @@ function DeleteCourse(course_id) {
 
 function DeleteExam(exam_id) {
 
-    let url = API_URL_P('exam', exam_id);
+    let url = API_URL_P('exams', exam_id);
 
     let result = {success:true, errorMessage:null, id:null};
 
-    DELETERequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+    DELETERequest(url, false, function(req, res) {
+        //TODO: error handling
     });
 
     return result;
@@ -358,110 +350,103 @@ function RemoveStudentFromSubject(student_id, subject_id) {
     
     let url = API_URL_P2('enroll', student_id, subject_id);
 
+    let json = JSON.stringify({
+        subject:true,
+        exam:false,
+        enroll:false
+    });
+
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+        //TODO: error handling
     });
 
     return result;
 }
 
 function AddStudentToSubject(student_id, subject_id) {
-    
+
     let url = API_URL_P2('enroll', student_id, subject_id);
+
+    let json = JSON.stringify({
+        subject:true,
+        exam:false,
+        enroll:true
+    });
 
     let result = {success:true, errorMessage:null, id:null};
 
-    POSTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
+    PUTRequest(url, json, false, function(req, res) {
+        //TODO: error handling
     });
 
     return result;
 }
 
 function RemoveStudentFromExam(student_id, exam_id) {
-    //TODO
-    return {"success":true, "errorMessage":null};
+
+    let url = API_URL_P2('enroll', student_id, exam_id);
+
+    let json = JSON.stringify({
+        subject:false,
+        exam:true,
+        enroll:false
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        //TODO: error handling
+    });
+
+    return result;
+
 }
 
 function AddStudentToExam(student_id, exam_id) {
-    //TODO (register student to exam)
-    return {"success":true, "errorMessage":null};
+    
+    let url = API_URL_P2('enroll', student_id, exam_id);
+
+    let json = JSON.stringify({
+        subject:false,
+        exam:true,
+        enroll:true
+    });
+
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        //TODO: error handling
+    });
+
+    return result;
+
 }
 
 function GradeStudent(student_id, subject_id, grade) {
     
     let url = API_URL_P2('grade', student_id, subject_id);
 
-    //TODO
+    let json = JSON.stringify({
+        grade:grade
+    });
     
-    return {"success":true, "errorMessage":null};
+    POSTRequest(url, json, false, function(req, res) {
+        //TODO: error handling
+    });
+
+    return;
 }
 
 function GetStudents() {
 
-    //To be deleted {
-    let json = '{ "students":[\
-        {	"studentId": 0,\
-            "firstName":"Henry",\
-            "lastName":"Belford",\
-            "address":"125 Howling St",\
-            "dateOfBirth":"1992-01-01",\
-            "city":"New York",\
-            "country":"USA",\
-            "zip":"1234",\
-            "phone":"123-456-7890",\
-            "email":"mymail@mail.com",\
-            "pic":"example-profile-pic.jpg",\
-            "subjectsEnrolledIn":[\
-                {	"subjectId": 0,\
-                    "code":"BMEVIAUMA06",\
-                    "name":"Software Architectures",\
-                    "credit":4\
-                }\
-            ],\
-            "examsEnrolledIn":[],\
-            "grades":[\
-                {\
-                    "subjectName":"Software Architectures",\
-                    "updated":"2019-01-02",\
-                    "grade":3\
-                }\
-            ]\
-        },\
-        {	"studentId": 1,\
-            "firstName":"Johnny",\
-            "lastName":"Depp",\
-            "address":"12 Wall St",\
-            "dateOfBirth":"1992-01-01",\
-            "city":"New York",\
-            "country":"USA",\
-            "zip":"1234",\
-            "phone":"123-456-7890",\
-            "email":"mymail@mail.com",\
-            "pic":"example-profile-pic.jpg",\
-            "subjectsEnrolledIn":[],\
-            "examsEnrolledIn":[]\
-        }\
-    ]}';
-    return JSON.parse(json).students;
-    //}
-    
     let url = API_URL('students');
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;
@@ -469,67 +454,13 @@ function GetStudents() {
 }
 
 function GetLecturers() {
-    
-    //To be deleted {
-    let json = '{ "lecturers":[\
-        {	"lecturerId": 0,\
-            "firstName":"John",\
-            "lastName":"Williams",\
-            "address":"85 Howling St",\
-            "dateOfBirth":"1992-01-01",\
-            "city":"New York",\
-            "country":"USA",\
-            "zip":"1234",\
-            "phone":"123-456-7890",\
-            "email":"mymail@mail.com",\
-            "pic":"example-profile-pic.jpg",\
-            "courses":[\
-                {\
-                    "courseId":0,\
-                    "type":"Lecture",\
-                    "code":"E",\
-                    "subjectId":0,\
-                    "subjectName":"Software Architectures",\
-                    "classRoom":"IB028"\
-                }\
-            ]\
-        },\
-        {	"lecturerId": 1,\
-            "firstName":"Billy",\
-            "lastName":"Johnson",\
-            "address":"170 Wall St",\
-            "dateOfBirth":"1992-01-01",\
-            "city":"New York",\
-            "country":"USA",\
-            "zip":"1234",\
-            "phone":"123-456-7890",\
-            "email":"billy@mail.com",\
-            "pic":"example-profile-pic.jpg"\
-        },\
-        {	"lecturerId": 2,\
-            "firstName":"Anna",\
-            "lastName":"Olsen",\
-            "address":"21 Jump St",\
-            "dateOfBirth":"1992-01-01",\
-            "city":"New York",\
-            "country":"USA",\
-            "zip":"1234",\
-            "phone":"123-456-7890",\
-            "email":"anna@mail.com",\
-            "pic":"example-profile-pic.jpg"\
-        }\
-    ]}';
-    return JSON.parse(json).lecturers;
-    //}
-    
-    let url = API_URL('lecturers');
+
+    let url = API_URL('teachers');
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;
@@ -537,53 +468,14 @@ function GetLecturers() {
 
 function GetSubjects() {
     
-    //To be deleted {
-    let json = '{ "subjects":[\
-        {	"subjectId": 0,\
-            "code":"BMEVIAUMA06",\
-            "name":"Software Architectures",\
-            "credit":4,\
-            "courses":[\
-                {\
-                    "courseId":0,\
-                    "type":"Lecture",\
-                    "code":"E",\
-                    "lecturerName":"John Williams",\
-                    "classRoom":"IB028"\
-                }\
-            ],\
-            "students":[\
-                {\
-                    "studentId": 1,\
-                    "firstName":"Johnny",\
-                    "lastName":"Depp",\
-                    "address":"12 Wall St",\
-                    "dateOfBirth":"1992-01-01",\
-                    "city":"New York",\
-                    "country":"USA",\
-                    "zip":"1234",\
-                    "phone":"123-456-7890",\
-                    "email":"mymail@mail.com"\
-                }\
-            ]\
-        },\
-        {	"subjectId": 1,\
-            "code":"BMEVIMIMA01",\
-            "name":"Software and System Verification",\
-            "credit":4\
-        }\
-    ]}';
-    return JSON.parse(json).subjects;
-    //}
-    
     let url = API_URL('subjects');
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
+    GETRequest(url, false, function(req, res) {
+        //if (req.status < 200 || req.status > 299) {
             result = JSON.parse(req.responseText);
-        }
+        //}
     });
 
     return result;
@@ -595,47 +487,12 @@ function GetCourses() {
 
 function GetExams() {
     
-    //To be deleted {
-    let json = '{ "exams":[\
-        {	"examId": 0,\
-            "date":"2019-01-20",\
-            "classRoom":"IB028",\
-            "subjectName":"Software Architectures",\
-            "subjectId":0,\
-            "students":[\
-                {\
-                    "studentId":0,\
-                    "firstName":"Billy",\
-                    "lastName":"Joel",\
-                    "address":"27 New York St",\
-                    "email":"joel@mail.com"\
-                }\
-            ]\
-        },\
-        {	"examId": 1,\
-            "date":"2019-01-21",\
-            "classRoom":"Q-I",\
-            "subjectName":"Software and System Verification",\
-            "subjectId":1\
-        },\
-        {	"examId": 2,\
-            "date":"2019-01-22",\
-            "classRoom":"IB027",\
-            "subjectName":"Software Architectures",\
-            "subjectId":0\
-        }\
-    ]}';
-    return JSON.parse(json).exams;
-    //}
-    
     let url = API_URL('exams');
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;
@@ -643,25 +500,13 @@ function GetExams() {
 
 
 function GetStudent(student_id) {
-    
-    //To be deleted {
-    let students = GetStudents();
 
-    for(i=0; i<students.length; ++i) {
-        if (students[i].studentId == student_id) return students[i];
-    }
-
-    return null;
-    //}
-
-    let url = API_URL_P('student', student_id);
+    let url = API_URL_P('students', student_id);
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;
@@ -669,25 +514,13 @@ function GetStudent(student_id) {
 }
 
 function GetLecturer(lecturer_id) {
-    
-    //To be deleted {
-    let lecturers = GetLecturers();
 
-    for(i=0; i<lecturers.length; ++i) {
-        if (lecturers[i].lecturerId == lecturer_id) return lecturers[i];
-    }
-
-    return null;
-    //}
-
-    let url = API_URL_P('lecturer', lecturer_id);
+    let url = API_URL_P('teachers', lecturer_id);
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;
@@ -696,24 +529,12 @@ function GetLecturer(lecturer_id) {
 
 function GetSubject(subject_id) {
 
-    //To be deleted {
-    let subjects = GetSubjects();
-
-    for(i=0; i<subjects.length; ++i) {
-        if (subjects[i].subjectId == subject_id) return subjects[i];
-    }
-
-    return null;
-    //}
-
-    let url = API_URL_P('subject', subject_id);
+    let url = API_URL_P('subjects', subject_id);
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;
@@ -725,25 +546,13 @@ function GetCourse(course_id) {
 }
 
 function GetExam(exam_id) {
-    
-    //To be deleted {
-    let exams = GetExams();
 
-    for(i=0; i<exams.length; ++i) {
-        if (exams[i].examId == exam_id) return exams[i];
-    }
-
-    return null;
-    //}
-
-    let url = API_URL_P('exam', exam_id);
+    let url = API_URL_P('exams', exam_id);
 
     let result;
 
-    GETRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result = JSON.parse(req.responseText);
-        }
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
     });
 
     return result;

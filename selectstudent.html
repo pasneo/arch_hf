@@ -103,28 +103,12 @@
         var requested_id;
 
 		function init() {
-		    //Just an example (to be deleted later)
-			let json = '{ "students":[\
-							{	"id": 0,\
-								"firstName":"John",\
-								"lastName":"Williams",\
-								"address":"85 Howling St",\
-								"email":"mymail@mail.com"\
-							},\
-							{	"id": 1,\
-								"firstName":"Billy",\
-								"lastName":"Johnson",\
-								"address":"170 Wall St",\
-								"email":"billy@mail.com"\
-							},\
-							{	"id": 2,\
-								"firstName":"Anna",\
-								"lastName":"Olsen",\
-								"address":"21 Jump St",\
-								"email":"anna@mail.com"\
-							}\
-						]}';
-            ReadData(json);
+			let students = GetStudents();
+			
+			for(i=0; i<students.length; ++i) {
+				let student = students[i];
+				AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address.address, student.email);
+			}
             
             select_type = getParam('type');
 
@@ -135,18 +119,6 @@
             //If we must select a student to register to an exam
 			else if (select_type == 'exam') {
 				requested_id = getParam('exam_id');
-			}
-
-		}
-
-		function ReadData(json) {
-			
-			let obj = JSON.parse(json);
-			let students = obj.students;
-
-			for(i=0; i<students.length; ++i) {
-				let student = students[i];
-				AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address, student.email);
 			}
 
 		}

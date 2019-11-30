@@ -196,7 +196,7 @@
 			if (courses) {
 				for(i=0; i<courses.length; ++i) {
 					let course = courses[i];
-					AddCourseToTable(course.courseId, course.code, course.type, course.lecturerId, course.lecturerName, course.classRoom);
+					AddCourseToTable(course.courseId, course.code, course.type, course.teacherId, course.teacherName, course.classRoom);
 				}
 			}
 
@@ -205,7 +205,7 @@
 			if (students) {
 				for(i=0; i<students.length; ++i) {
 					let student = students[i];
-					AddStudentToTable(student.studentId, student.firstName,student.lastName, student.address, student.email);
+					AddStudentToTable(student.studentId, student.firstName,student.lastName, student.address.address, student.email);
 				}
 			}
 
@@ -226,8 +226,9 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					DeleteCourse(id);
 					e.stopPropagation();
+					DeleteCourse(id);
+					location.reload();
 				};
 
             //TODO: what happens when clicked
@@ -253,8 +254,9 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					RemoveStudentFromSubject(id, target_id);
 					e.stopPropagation();
+					RemoveStudentFromSubject(id, target_id);
+					location.reload();
 				};
 
 			newElement.onclick = function() { window.location = 'student.html?student_id='+id };

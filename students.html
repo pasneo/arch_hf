@@ -107,7 +107,7 @@
 
 			for(i=0; i<students.length; ++i) {
 				let student = students[i];
-				AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address, student.email);
+				AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address.address, student.email);
 			}
 
 			document.getElementById('add-student-button').onclick = function() {
@@ -130,14 +130,17 @@
 									<td class="cell100 column3">'+address+'</td>\
 									<td class="cell100 column4">'+email+deleteButtonCode+'</td>';
 
+			newElement.onclick = function(e) { window.location = 'student.html?student_id='+id };
+
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					DeleteStudent(id);
 					e.stopPropagation();
+					DeleteStudent(id);
+					location.reload();
+					//e.preventDefault();
 				};
 
-			newElement.onclick = function() { window.location = 'student.html?student_id='+id };
 
 			document.getElementById("tableRows").appendChild( newElement );
 		}

@@ -134,8 +134,9 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					DeleteExam(id);
 					e.stopPropagation();
+					DeleteExam(id);
+					location.reload();
 				};
 
 			newElement.onclick = function() { window.location = 'exam.html?exam_id='+id };

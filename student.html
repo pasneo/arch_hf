@@ -204,29 +204,38 @@
 
 			//Fill target data fields
             document.getElementById("target-name").innerHTML = target.firstName + ' ' + target.lastName;
-            document.getElementById("target-dateofbirth").innerHTML = target.dateOfBirth;
-            document.getElementById("target-address").innerHTML = target.address;
-            document.getElementById("target-city").innerHTML = target.city;
-            document.getElementById("target-country").innerHTML = target.country;
-            document.getElementById("target-zip").innerHTML = target.zip;
+            document.getElementById("target-dateofbirth").innerHTML = target.dob;
+            document.getElementById("target-address").innerHTML = target.address.address;
+            document.getElementById("target-city").innerHTML = target.address.city;
+            document.getElementById("target-country").innerHTML = target.address.country;
+            document.getElementById("target-zip").innerHTML = target.address.zip;
             document.getElementById("target-phone").innerHTML = target.phone;
             document.getElementById("target-email").innerHTML = target.email;
 
 			//Set profile picture
-			document.getElementById("target-profile-pic").src = target.pic;
+			if (target.pic)
+				document.getElementById("target-profile-pic").src = target.pic;
 
-			let subjects = target.subjectsEnrolledIn;
+			let subjects = target.subjects;
+			let subjectsEnrolledIn = target.subjectsEnrolledIn;
 
-			for(i=0; i<subjects.length; ++i) {
-				let subject = subjects[i];
-				AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
+			if (subjects && subjectsEnrolledIn && subjectsEnrolledIn.length > 0) {
+
+				for(i=0; i<subjects.length; ++i) {
+					let subject = subjects[i];
+					if (subjectsEnrolledIn.includes(subject.subjectId))
+						AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
+				}
+
 			}
 			
 			let grades = target.grades;
 
-			for(i=0; i<grades.length; ++i) {
-				let grade = grades[i];
-				AddGradeToTable(grade.subjectName, grade.updated, grade.grade);
+			if (grades) {
+				for(i=0; i<grades.length; ++i) {
+					let grade = grades[i];
+					AddGradeToTable(grade.subjectName, grade.updated, grade.grade);
+				}
 			}
 
 		}

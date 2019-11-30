@@ -103,37 +103,18 @@
 
 		//Just an example (to be deleted later)
 		function init() {
-			let json = '{ "subjects":[\
-							{	"id": 0,\
-								"code":"BMEVIAUMA06",\
-								"name":"Software Architectures",\
-								"credit":4\
-							},\
-							{	"id": 0,\
-								"code":"BMEVIMIMA01",\
-								"name":"Software and System Verification",\
-								"credit":4\
-							}\
-						]}';
-            ReadData(json);
+			
+			let subjects = GetSubjects();
+			for(i=0; i<subjects.length; ++i) {
+				let subject = subjects[i];
+				AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
+			}
             
             select_type = getParam('type');
 
             if (select_type == 'student') {
                 requested_id = getParam('student_id');
             }
-
-		}
-
-		function ReadData(json) {
-			
-			let obj = JSON.parse(json);
-			let subjects = obj.subjects;
-
-			for(i=0; i<subjects.length; ++i) {
-				let subject = subjects[i];
-				AddSubjectToTable(subject.subjectId, subject.code, subject.name, subject.credit);
-			}
 
 		}
 

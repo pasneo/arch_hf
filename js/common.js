@@ -95,7 +95,7 @@ function DELETERequest(url, async, func) {
         func(req, req.response);
     }
 
-    req.send(json);
+    req.send();
 
 }
 
@@ -114,4 +114,18 @@ function ShowAdminControlsIfNeeded() {
         for(i=0; i<adminControls.length; ++i) adminControls[i].style.visibility = 'visible';
     }
 
+}
+
+function FormatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }

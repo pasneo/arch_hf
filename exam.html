@@ -167,7 +167,7 @@
 			if (students) {
 				for(i=0; i<students.length; ++i) {
 					let student = students[i];
-					AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address, student.email);
+					AddStudentToTable(student.studentId, student.firstName, student.lastName, student.address.address, student.email);
 				}
 			}
 
@@ -190,15 +190,16 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					RemoveStudentFromExam(id, target_id);
 					e.stopPropagation();
+					RemoveStudentFromExam(id, target_id);
+					location.reload();
 				};
 				
 			//Grade button click
 			newElement.getElementsByClassName("custom-button")[1].onclick =
 				function(e) {
-					window.location = 'grade.html?student_id='+id+'&subject_id='+subject_id;
 					e.stopPropagation();
+					window.location = 'grade.html?student_id='+id+'&subject_id='+subject_id;
 				};
 
 			newElement.onclick = function() { window.location = 'student.html?student_id='+id };

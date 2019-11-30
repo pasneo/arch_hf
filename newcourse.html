@@ -60,10 +60,10 @@
                         <td class="desc-title">Type</td>
                         <td class="desc-content">
                             <select class="editor-input-base" id="target-type">
-                                <option value="lecture">Lecture</option>
-                                <option value="practice">Practice</option>
-                                <option value="laboratory">Laboratory</option>
-                                <option value="other">Other</option>
+                                <option value="Lecture">Lecture</option>
+                                <option value="Practice">Practice</option>
+                                <option value="Laboratory">Laboratory</option>
+                                <option value="Other">Other</option>
                             </select>
                         </td>
                     </tr>
@@ -159,7 +159,7 @@
 
 			for(i=0; i<lecturers.length; ++i) {
 				let option = document.createElement("option");
-				option.value = lecturers[i].lecturerId;
+				option.value = lecturers[i].teacherId;
             	option.text = lecturers[i].firstName + ' ' + lecturers[i].lastName;
             	selectLecturers.add(option);
 			}

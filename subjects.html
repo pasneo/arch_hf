@@ -133,8 +133,9 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					DeleteSubject(id);
 					e.stopPropagation();
+					DeleteSubject(id);
+					location.reload();
 				};
 
 			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id };

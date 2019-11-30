@@ -109,7 +109,7 @@
 
 			for(i=0; i<lecturers.length; ++i) {
 				let lecturer = lecturers[i];
-				AddTargetToTable(lecturer.lecturerId, lecturer.firstName, lecturer.lastName, lecturer.address, lecturer.email);
+				AddTargetToTable(lecturer.teacherId, lecturer.firstName, lecturer.lastName, lecturer.address.address, lecturer.email);
 			}
 
 			document.getElementById('add-lecturer-button').onclick = function() {
@@ -135,8 +135,9 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					DeleteLecturer(id);
 					e.stopPropagation();
+					DeleteLecturer(id);
+					location.reload();
 				};
 
 			newElement.onclick = function() { window.location = 'lecturer.html?lecturer_id='+id };

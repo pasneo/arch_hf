@@ -168,16 +168,17 @@
 
 			//Fill target data fields
             document.getElementById("target-name").innerHTML = target.firstName + ' ' + target.lastName;
-            document.getElementById("target-dateofbirth").innerHTML = target.dateOfBirth;
-            document.getElementById("target-address").innerHTML = target.address;
-            document.getElementById("target-city").innerHTML = target.city;
-            document.getElementById("target-country").innerHTML = target.country;
-            document.getElementById("target-zip").innerHTML = target.zip;
+            document.getElementById("target-dateofbirth").innerHTML = target.dob;
+            document.getElementById("target-address").innerHTML = target.address.address;
+            document.getElementById("target-city").innerHTML = target.address.city;
+            document.getElementById("target-country").innerHTML = target.address.country;
+            document.getElementById("target-zip").innerHTML = target.address.zip;
             document.getElementById("target-phone").innerHTML = target.phone;
             document.getElementById("target-email").innerHTML = target.email;
 
 			//Set profile picture
-			document.getElementById("target-profile-pic").src = target.pic;
+			if (target.pic)
+				document.getElementById("target-profile-pic").src = target.pic;
 
 			let courses = target.courses;
 
@@ -205,8 +206,8 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					DeleteCourse(id);
 					e.stopPropagation();
+					DeleteCourse(id);
 				};
 			newElement.onclick = function() { window.location = 'subject.html?subject_id='+subjectId; };
 
