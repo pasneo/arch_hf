@@ -105,7 +105,9 @@ function paramURL(base, param) {
 
 function ShowAdminControlsIfNeeded() {
 
-    if (isAuthenticated()) {
+    return;//TODO: remove this return
+
+    if (!isAuthenticated()) {
         let adminControls = document.getElementsByClassName('admin');
         for(i=0; i<adminControls.length; ++i) adminControls[i].style.visibility = 'hidden';
     }

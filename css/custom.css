@@ -135,7 +135,7 @@ a.table-button {
 }
 
 .admin {
-    visibility: hidden;
+    visibility: visible;/* TODO: this should be hidden by default */
 }
 
 .centered-button-container {
