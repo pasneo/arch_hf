@@ -239,7 +239,7 @@
 			if (grades) {
 				for(i=0; i<grades.length; ++i) {
 					let grade = grades[i];
-					AddGradeToTable(grade.subjectName, grade.updated, grade.grade);
+					AddGradeToTable(grade.subjectName, FormatDateToLocal(grade.updated), grade.grade);
 				}
 			}
 
