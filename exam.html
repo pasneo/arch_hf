@@ -194,8 +194,10 @@
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
 					e.stopPropagation();
-					RemoveStudentFromExam(id, target_id);
-					location.reload();
+					if (confirm("Are you sure you want to remove student from exam?")) {
+						RemoveStudentFromExam(id, target_id);
+						location.reload();
+					}
 				};
 				
 			//Grade button click

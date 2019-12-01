@@ -197,8 +197,10 @@
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
 					e.stopPropagation();
-					DeleteExam(id);
-					location.reload();
+					if (confirm("Are you sure you want to delete exam?")) {
+						DeleteExam(id);
+						location.reload();
+					}
 				};
 
 			newElement.onclick = function() { window.location = 'exam.html?exam_id='+id };

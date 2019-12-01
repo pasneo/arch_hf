@@ -199,8 +199,10 @@
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
 					e.stopPropagation();
-					DeleteStudent(id);
-					location.reload();
+					if (confirm("Are you sure you want to delete student?")) {
+						DeleteStudent(id);
+						location.reload();
+					}
 				};
 
 

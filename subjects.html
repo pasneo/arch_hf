@@ -196,8 +196,10 @@
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
 					e.stopPropagation();
-					DeleteSubject(id);
-					location.reload();
+					if (confirm("Are you sure you want to delete subject?")) {
+						DeleteSubject(id);
+						location.reload();
+					}
 				};
 
 			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id };
