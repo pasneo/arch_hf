@@ -57,7 +57,12 @@ function Enroll(url, json) {
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        //TODO: error handling
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.error) {
+            result.success = false;
+            result.errorMessage = resObj.error;
+            alert(result.errorMessage);
+        }
     });
 
     return result;
@@ -127,7 +132,12 @@ function GradeStudent(student_id, subject_id, grade) {
     });
     
     POSTRequest(url, json, false, function(req, res) {
-        //TODO: error handling
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.error) {
+            result.success = false;
+            result.errorMessage = resObj.error;
+            alert(result.errorMessage);
+        }
     });
 
     return;
