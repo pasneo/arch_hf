@@ -28,7 +28,7 @@ function isAuthenticated() {
     const token = getAuthorizationToken();
     if (token) {
         //const decodedToken = jwtDecode(token); 
-        const decodedToken = {exp:999999999999}; //TODO: should use jwtDecode
+        const decodedToken = {exp:999999999999};
         if (decodedToken.exp * 1000 < Date.now()) {
             return false;
         }
@@ -110,8 +110,6 @@ function paramURL(base, param) {
 }
 
 function ShowAdminControlsIfNeeded() {
-
-    //return;//TODO: remove this return
 
     if (!isAuthenticated()) {
         let adminControls = document.getElementsByClassName('admin');
