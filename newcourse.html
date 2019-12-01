@@ -47,12 +47,13 @@
 				</div>
 			</div>
 
+			<form id="main-form">
             <div class="desc-container">
                 <table>
                     <tr>
                         <td class="desc-title">Code</td>
                         <td class="desc-content">
-                            <input type="text" id="target-code" class="editor-input-base"/>
+                            <input type="text" id="target-code" class="editor-input-base" required/>
                         </td>
                         <td class="profile-pic" rowspan="100">
                         </td>
@@ -78,11 +79,12 @@
                     <tr>
                         <td class="desc-title">Classroom</td>
                         <td class="desc-content">
-                            <input type="text" id="target-classroom" class="editor-input-base"/>
+                            <input type="text" id="target-classroom" class="editor-input-base" required/>
                         </td>
                     </tr>
                 </table>
-            </div>
+			</div>
+			</form>
 
             
         <div class="maintitle">
@@ -132,7 +134,10 @@
 				window.location = 'subjects.html';
 			}
 
-			document.getElementById('submit-button').onclick = function() { SubmitData(); }
+			document.getElementById('submit-button').onclick = function() {
+				if (document.getElementById('main-form').reportValidity())
+					SubmitData();
+			}
 
 			UpdateLoginMenu();
         }

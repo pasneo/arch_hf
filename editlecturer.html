@@ -55,8 +55,6 @@
                             <input type="text" id="target-firstName" class="editor-input-base" required/>
                         </td>
                         <td class="profile-pic" rowspan="100">
-                            <img id="target-profile-pic"/>
-                            <input type="file" accept="image/x-png,image/jpeg" id="target-profile-pic-file" class="editor-input-base"/>
                         </td>
                     </tr>
                     <tr>
@@ -159,14 +157,6 @@
             document.getElementById('submit-button').onclick = function() {
 				if (document.getElementById('main-form').reportValidity())
 					SubmitData();
-			}
-            
-            document.getElementById('target-profile-pic-file').onchange = function() {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('target-profile-pic').src = e.target.result;
-                }
-                reader.readAsDataURL(document.getElementById('target-profile-pic-file').files[0]);
 			}
 			
 			UpdateLoginMenu();
