@@ -1,4 +1,5 @@
 
+
 function hasParam(paramName) {
     var re = new RegExp('[?&]'+paramName+'=');
     return re.test(location.search);
