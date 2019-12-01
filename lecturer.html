@@ -132,6 +132,7 @@
     <script src="js/common.js"></script>
     <script src="js/dbman.js"></script>
     <script src="js/lecturerman.js"></script>
+    <script src="js/courseman.js"></script>
 <!--===============================================================================================-->
 
 	<script>
@@ -213,7 +214,10 @@
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
 					e.stopPropagation();
-					DeleteCourse(id);
+					if (confirm("Are you sure you want to delete course?")) {
+						DeleteCourse(id);
+						location.reload();
+					}
 				};
 			newElement.onclick = function() { window.location = 'subject.html?subject_id='+subjectId; };
 
