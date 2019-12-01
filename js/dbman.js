@@ -137,10 +137,35 @@ function GetNextPage(url, lastDocId, idProp) {
     return GetPage(url, json, idProp);
 }
         
-function Login(username, password) {
+function Login(email, password) {
 
     let url = API_URL('login');
 
-    //TODO
+    let json = JSON.stringify({
+        email: email,
+        password: password
+    });
+
+    let result = false;
+
+    POSTRequest(url, json, false, function(req,res) {
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.token) {
+            let token = resObj.token;
+            setAuthorizationToken(token);
+            result = true;
+        }
+        else if (resObj.general) {
+            alert(resObj.general);
+        }
+    });
+
+    return result;
+
+}
+
+function Logout() {
+
+    removeAuthorizationToken();
 
 }

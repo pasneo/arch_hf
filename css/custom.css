@@ -135,7 +135,7 @@ a.table-button {
 }
 
 .admin {
-    visibility: visible;/* TODO: this should be hidden by default */
+    visibility: hidden;
 }
 
 .centered-button-container {
@@ -180,4 +180,15 @@ a.table-button {
     padding: 2px 5px;
     font-size: 16pt;
     width: 400px;
+}
+
+#login-menu {
+    position:fixed;
+    right: 0;
+    top:0;
+}
+
+#login-menu:hover {
+    background-color: transparent !important;
+    color: black;
 }

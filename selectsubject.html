@@ -33,6 +33,7 @@
 								<li><a href="lecturers.html">Lecturers</a></li>
 								<li><a href="subjects.html">Subjects</a></li>
 								<li><a href="exams.html">Exams</a></li>
+								<li><a href="login.html" id="login-menu"></a></li>
 						</ul>
 					</div>
 				</div>
@@ -115,7 +116,9 @@
 
             if (select_type == 'student') {
                 requested_id = getParam('student_id');
-            }
+			}
+			
+			UpdateLoginMenu();
 
 		}
 

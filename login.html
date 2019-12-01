@@ -99,7 +99,8 @@
 			document.getElementById('login-button').onclick = function() {
                 let email = document.getElementById('email').value;
                 let password = document.getElementById('password').value;
-                Login(email, password);
+				if (Login(email, password))
+					window.location = 'students.html';
             }
 
         }

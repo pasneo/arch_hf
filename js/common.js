@@ -20,10 +20,15 @@ function getAuthorizationToken() {
     return localStorage.FBIdToken;
 }
 
+function removeAuthorizationToken() {
+    localStorage.removeItem('FBIdToken');
+}
+
 function isAuthenticated() {
     const token = getAuthorizationToken();
     if (token) {
-        const decodedToken = jwtDecode(token); //TODO: where is jwtDecode defined?
+        //const decodedToken = jwtDecode(token); 
+        const decodedToken = {exp:999999999999}; //TODO: should use jwtDecode
         if (decodedToken.exp * 1000 < Date.now()) {
             return false;
         }
@@ -106,7 +111,7 @@ function paramURL(base, param) {
 
 function ShowAdminControlsIfNeeded() {
 
-    return;//TODO: remove this return
+    //return;//TODO: remove this return
 
     if (!isAuthenticated()) {
         let adminControls = document.getElementsByClassName('admin');
@@ -137,4 +142,16 @@ function FormatDateToLocal(date) {
 //Formats date to be usable by database
 function FormatDateToDB(date) {
     return new Date(date).toISOString();
+}
+
+function UpdateLoginMenu() {
+    if (isAuthenticated()) {
+        document.getElementById('login-menu').innerHTML = "Log out";
+        document.getElementById('login-menu').onclick = function(e) {
+            Logout();
+        };
+    }
+    else {
+        document.getElementById('login-menu').innerHTML = "Log in";
+    }
 }
