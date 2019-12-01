@@ -128,7 +128,7 @@ function GradeStudent(student_id, subject_id, grade) {
     let url = API_URL_P2('grade', student_id, subject_id);
 
     let json = JSON.stringify({
-        grade:grade
+        grade:grade.toString()
     });
     
     POSTRequest(url, json, false, function(req, res) {

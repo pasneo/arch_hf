@@ -62,6 +62,7 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
+    <script src="js/jwt-decode.min.js"></script>
     <script src="js/common.js"></script>
     <script src="js/dbman.js"></script>
     <script src="js/studentman.js"></script>
@@ -86,7 +87,7 @@
         
         function Grade(student_id, subject_id, grade) {
             GradeStudent(student_id, subject_id, grade);
-            window.history.back();
+            //window.history.back();
         }
 
         document.onload = init();
