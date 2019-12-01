@@ -119,9 +119,6 @@
 			document.getElementById('add-lecturer-button').onclick = function() {
 				window.location = 'editlecturer.html';
 			};
-			
-			UpdateLoginMenu();
-			ShowAdminControlsIfNeeded();
 		}
 
 		function PrevPage() {
@@ -163,6 +160,8 @@
 
 			ClearTable();
 			FillTable();
+			UpdateLoginMenu();
+			ShowAdminControlsIfNeeded();
 
 		}
 

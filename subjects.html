@@ -118,9 +118,6 @@
 			document.getElementById('add-subject-button').onclick = function() {
 				window.location = 'editsubject.html';
 			};
-			
-			UpdateLoginMenu();
-			ShowAdminControlsIfNeeded();
 		}
 
 		function PrevPage() {
@@ -162,6 +159,9 @@
 
 			ClearTable();
 			FillTable();
+
+			UpdateLoginMenu();
+			ShowAdminControlsIfNeeded();
 
 		}
 

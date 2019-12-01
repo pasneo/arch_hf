@@ -118,9 +118,6 @@
 			document.getElementById('add-exam-button').onclick = function() {
 				window.location = 'editexam.html';
 			};
-			
-			UpdateLoginMenu();
-			ShowAdminControlsIfNeeded();
 
 		}
 
@@ -163,6 +160,9 @@
 
 			ClearTable();
 			FillTable();
+
+			UpdateLoginMenu();
+			ShowAdminControlsIfNeeded();
 
 		}
 
