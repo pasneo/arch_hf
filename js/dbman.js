@@ -22,9 +22,11 @@ function CreateEntity(url, json, idProp) {
     let result = {success:true, errorMessage:null, id:null};
 
     POSTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.error) {
             result.success = false;
-            result.errorMessage = "Something went wrong";
+            result.errorMessage = resObj.error;
+            alert(result.errorMessage);
         }
         else {
             result.id = JSON.parse(req.responseText)[idProp];
@@ -39,15 +41,27 @@ function UpdateEntity(url, json) {
     let result = {success:true, errorMessage:null, id:null};
 
     PUTRequest(url, json, false, function(req, res) {
-        //TODO: check error
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.error) {
+            result.success = false;
+            result.errorMessage = resObj.error;
+            alert(result.errorMessage);
+        }
     });
 
     return result;
 }
 
 function DeleteEntity(url) {
+    let result = {success:true, errorMessage:null, id:null};
+
     DELETERequest(url, false, function(req, res) {
-        //TODO: error handling
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.error) {
+            result.success = false;
+            result.errorMessage = resObj.error;
+            alert(result.errorMessage);
+        }
     });
 
     return result;
@@ -57,7 +71,12 @@ function GetEntities(url) {
     let result;
 
     GETRequest(url, false, function(req, res) {
-        result = JSON.parse(req.responseText);
+        let resObj = JSON.parse(req.responseText);
+        if (resObj.error) {
+            alert(resObjsult.errorMessage);
+        }
+        else
+            result = resObj;
     });
 
     return result;
@@ -82,7 +101,10 @@ function GetPage(url, json, idProp) {
 
     POSTRequest(url, json, false, function(req, res) {
         result.data = JSON.parse(req.responseText);
-        if (result.data && result.data.length > 0) {
+        if (result.data.error) {
+            alert(result.data.error);
+        }
+        else if (result.data && result.data.length > 0) {
             result.firstDocId = result.data[0][idProp];
             result.lastDocId = result.data[result.data.length-1][idProp];
         }
