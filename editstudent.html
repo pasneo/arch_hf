@@ -45,12 +45,13 @@
 				</div>
 			</div>
 
+			<form id="main-form">
             <div class="desc-container">
                 <table>
                     <tr>
                         <td class="desc-title">First name</td>
                         <td class="desc-content">
-                            <input type="text" id="target-firstName" class="editor-input-base"/>
+                            <input type="text" id="target-firstName" class="editor-input-base" required/>
                         </td>
                         <td class="profile-pic" rowspan="100">
                             <img id="target-profile-pic"/>
@@ -60,53 +61,54 @@
                     <tr>
                         <td class="desc-title">Last name</td>
                         <td class="desc-content">
-                            <input type="text" id="target-lastName" class="editor-input-base"/>
+                            <input type="text" id="target-lastName" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">Date of birth</td>
                         <td class="desc-content">
-                            <input type="date" id="target-dateofbirth" class="editor-input-base"/>
+                            <input type="date" id="target-dateofbirth" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">Address</td>
                         <td class="desc-content">
-                            <input type="text" id="target-address" class="editor-input-base"/>
+                            <input type="text" id="target-address" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">City</td>
                         <td class="desc-content">
-                            <input type="text" id="target-city" class="editor-input-base"/>
+                            <input type="text" id="target-city" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">Country</td>
                         <td class="desc-content">
-                            <input type="text" id="target-country" class="editor-input-base"/>
+                            <input type="text" id="target-country" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">ZIP</td>
                         <td class="desc-content">
-                            <input type="text" id="target-zip" class="editor-input-base"/>
+                            <input type="text" id="target-zip" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">Phone</td>
                         <td class="desc-content">
-                            <input type="text" id="target-phone" class="editor-input-base"/>
+                            <input type="text" id="target-phone" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">E-mail</td>
                         <td class="desc-content">
-                            <input type="email" id="target-email" class="editor-input-base"/>
+                            <input type="email" id="target-email" class="editor-input-base" required/>
                         </td>
                     </tr>
                 </table>
-            </div>
+			</div>
+			</form>
 
             
         <div class="maintitle">
@@ -152,7 +154,10 @@
 				document.getElementById('main-title').innerHTML = "New student";
 			}
 
-            document.getElementById('submit-button').onclick = function() { SubmitData(); }
+            document.getElementById('submit-button').onclick = function() {
+				if (document.getElementById('main-form').reportValidity())
+					SubmitData();
+			}
             
             document.getElementById('target-profile-pic-file').onchange = function() {
                 let reader = new FileReader();

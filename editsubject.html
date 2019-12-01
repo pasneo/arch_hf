@@ -45,12 +45,13 @@
 				</div>
 			</div>
 
+			<form id="main-form">
             <div class="desc-container">
                 <table>
                     <tr>
                         <td class="desc-title">Name</td>
                         <td class="desc-content">
-                            <input type="text" id="target-name" class="editor-input-base"/>
+                            <input type="text" id="target-name" class="editor-input-base" required/>
                         </td>
                         <td class="profile-pic" rowspan="100">
                         </td>
@@ -58,17 +59,18 @@
                     <tr>
                         <td class="desc-title">Code</td>
                         <td class="desc-content">
-                            <input type="text" id="target-code" class="editor-input-base"/>
+                            <input type="text" id="target-code" class="editor-input-base" required/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">Credit</td>
                         <td class="desc-content">
-                            <input type="number" id="target-credit" class="editor-input-base"/>
+                            <input type="number" id="target-credit" class="editor-input-base" required/>
                         </td>
                     </tr>
                 </table>
-            </div>
+			</div>
+			</form>
 
             
         <div class="maintitle">
@@ -114,7 +116,10 @@
 				document.getElementById('main-title').innerHTML = "New subject";
 			}
 
-			document.getElementById('submit-button').onclick = function() { SubmitData(); }
+			document.getElementById('submit-button').onclick = function() {
+				if (document.getElementById('main-form').reportValidity())
+					SubmitData();
+			}
 
 		}
 

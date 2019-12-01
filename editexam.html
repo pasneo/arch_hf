@@ -45,6 +45,7 @@
 				</div>
 			</div>
 
+			<form id="main-form">
             <div class="desc-container">
                 <table>
                     <tr>
@@ -60,17 +61,18 @@
                     <tr>
                         <td class="desc-title">Date</td>
                         <td class="desc-content">
-                            <input type="date" id="target-date" class="editor-input-base"/>
+                            <input type="date" required id="target-date" class="editor-input-base"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="desc-title">Classroom</td>
                         <td class="desc-content">
-                            <input type="text" id="target-classroom" class="editor-input-base"/>
+                            <input type="text" required id="target-classroom" class="editor-input-base"/>
                         </td>
                     </tr>
                 </table>
-            </div>
+			</div>
+			</form>
 
             
         <div class="maintitle">
@@ -119,9 +121,10 @@
 				document.getElementById('main-title').innerHTML = "New exam";
 			}
 
-
-
-			document.getElementById('submit-button').onclick = function() { SubmitData(); }
+			document.getElementById('submit-button').onclick = function() {
+				if (document.getElementById('main-form').reportValidity())
+					SubmitData();
+			}
 
 		}
 
