@@ -8,20 +8,7 @@ function CreateExam(subject_id, date, classroom) {
         classRoom:classroom
     });
 
-    let result = {success:true, errorMessage:null, id:null};
-
-    POSTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
-        else {
-            //TODO: get created entity's id
-            result.id = JSON.parse(req.responseText).examId;
-        }
-    });
-
-    return result;
+    return CreateEntity(url, json, 'examId');
 }
 
 function UpdateExam(exam_id, subject_id, date, classroom) {
@@ -33,57 +20,23 @@ function UpdateExam(exam_id, subject_id, date, classroom) {
         date:FormatDateToDB(date),
         classRoom:classroom
     });
-
-    let result = {success:true, errorMessage:null, id:null};
-
-    PUTRequest(url, json, false, function(req, res) {
-        /*if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }*/
-    });
-
-    return result;
+    
+    return UpdateEntity(url, json);
 }
 
 function DeleteExam(exam_id) {
-
     let url = API_URL_P('exams', exam_id);
-
-    let result = {success:true, errorMessage:null, id:null};
-
-    DELETERequest(url, false, function(req, res) {
-        //TODO: error handling
-    });
-
-    return result;
+    return DeleteEntity(url);
 }
 
 function GetExams() {
-    
     let url = API_URL('exams');
-
-    let result;
-
-    GETRequest(url, false, function(req, res) {
-        result = JSON.parse(req.responseText);
-    });
-
-    return result;
+    return GetEntities(url);
 }
 
 function GetExam(exam_id) {
-
     let url = API_URL_P('exams', exam_id);
-
-    let result;
-
-    GETRequest(url, false, function(req, res) {
-        result = JSON.parse(req.responseText);
-    });
-
-    return result;
-
+    return GetEntity(url);
 }
 
 function GetExamsFirstPage() {

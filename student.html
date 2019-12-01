@@ -255,8 +255,9 @@
 			//Delete button click
 			newElement.getElementsByClassName("custom-button")[0].onclick =
 				function(e) {
-					RemoveStudentFromSubject(target_id, id);
 					e.stopPropagation();
+					RemoveStudentFromSubject(target_id, id);
+					location.reload();
 				};
 			newElement.onclick = function() { window.location = 'subject.html?subject_id='+id; };
 

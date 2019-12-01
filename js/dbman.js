@@ -17,7 +17,61 @@ function API_URL_P2(rel, p1, p2) {
 
 
 
+function CreateEntity(url, json, idProp) {
 
+    let result = {success:true, errorMessage:null, id:null};
+
+    POSTRequest(url, json, false, function(req, res) {
+        if (req.status < 200 || req.status > 299) {
+            result.success = false;
+            result.errorMessage = "Something went wrong";
+        }
+        else {
+            result.id = JSON.parse(req.responseText)[idProp];
+        }
+    });
+
+    return result;
+
+}
+
+function UpdateEntity(url, json) {
+    let result = {success:true, errorMessage:null, id:null};
+
+    PUTRequest(url, json, false, function(req, res) {
+        //TODO: check error
+    });
+
+    return result;
+}
+
+function DeleteEntity(url) {
+    DELETERequest(url, false, function(req, res) {
+        //TODO: error handling
+    });
+
+    return result;
+}
+
+function GetEntities(url) {
+    let result;
+
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
+    });
+
+    return result;
+}
+
+function GetEntity(url) {
+    let result;
+
+    GETRequest(url, false, function(req, res) {
+        result = JSON.parse(req.responseText);
+    });
+
+    return result;
+}
 
 
 

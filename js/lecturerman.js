@@ -16,20 +16,7 @@ function CreateLecturer(firstName, lastName, dateOfBirth, address, city, country
         email:email
     });
 
-    let result = {success:true, errorMessage:null, id:null};
-
-    POSTRequest(url, json, false, function(req, res) {
-        if (req.status < 200 || req.status > 299) {
-            result.success = false;
-            result.errorMessage = "Something went wrong";
-        }
-        else {
-            //TODO: get created entity's id
-            result.id = JSON.parse(req.responseText).teacherId;
-        }
-    });
-
-    return result;
+    return CreateEntity(url, json, 'teacherId');
 }
 
 function UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, city, country, zip, phone, email) {
@@ -50,53 +37,22 @@ function UpdateLecturer(lecturer_id, firstName, lastName, dateOfBirth, address, 
         email:email
     });
 
-    let result = {success:true, errorMessage:null, id:null};
-
-    PUTRequest(url, json, false, function(req, res) {
-        //TODO: check error
-    });
-
-    return result;
+    return UpdateEntity(url, json);
 }
 
 function DeleteLecturer(lecturer_id) {
-
     let url = API_URL_P('teachers', lecturer_id);
-
-    let result = {success:true, errorMessage:null, id:null};
-
-    DELETERequest(url, false, function(req, res) {
-        //TODO: error handling
-    });
-
-    return result;
+    return DeleteEntity(url);
 }
 
 function GetLecturers() {
-
     let url = API_URL('teachers');
-
-    let result;
-
-    GETRequest(url, false, function(req, res) {
-        result = JSON.parse(req.responseText);
-    });
-
-    return result;
+    return GetEntities(url);
 }
 
 function GetLecturer(lecturer_id) {
-
     let url = API_URL_P('teachers', lecturer_id);
-
-    let result;
-
-    GETRequest(url, false, function(req, res) {
-        result = JSON.parse(req.responseText);
-    });
-
-    return result;
-
+    return GetEntity(url);
 }
 
 function GetLecturersFirstPage() {
